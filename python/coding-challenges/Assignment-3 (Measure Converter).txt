@@ -1,0 +1,33 @@
+#Task 1
+degree = input ('Enter Celsius Temperature to converts it Fahrenheit: ')
+Celsius_to_Fahrenheit=(float(degree)*9)/5+32
+print(end='\n')
+print(float(degree), ' Celsius equal to', Celsius_to_Fahrenheit, ' Fahrenheit')
+
+#Task 2
+print(end='\n')
+km_distance = input ('Enter a distance in Kilometers to converts it Miles: ')
+km_to_mile=(float(km_distance)/1.609344)
+print(end='\n')
+print(float(km_distance), ' km equal to', km_to_mile, ' miles')
+
+#Task 1 Fonk
+degree = input ('Enter Celsius Temperature to converts it Fahrenheit: ')
+def Celsius_to_Fahrenheit(degree):
+    Celsius_to_Fahrenheit = (float(degree)*9)/5+32
+    print(end='\n')
+    print(float(degree), ' Celsius equal to', Celsius_to_Fahrenheit, ' Fahrenheit')
+    return
+
+Celsius_to_Fahrenheit(degree)
+
+#Task 2 Fonk
+print(end='\n')
+km_distance = input ('Enter a distance in Kilometers to converts it Miles: ')
+def km_to_mile (km_distance):
+	km_to_mile=(float(km_distance)/1.609344)
+	print(end='\n')
+	print(float(km_distance), ' km equal to', km_to_mile, ' miles')
+	return
+	
+km_to_mile (km_distance)

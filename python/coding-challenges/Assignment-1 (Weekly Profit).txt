@@ -1,0 +1,13 @@
+#Assignment-1 (Weekly Profit)
+
+main_capital = 1000
+
+rate = 0.07
+
+day = 7
+
+rate_ratio = main_capital*rate*day/360
+
+capital = main_capital+rate_ratio
+
+print (capital)
