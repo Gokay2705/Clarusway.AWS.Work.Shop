@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: Project-101 - Kittens Carousel Static Website deployed on AWS EC2 using Cloudformation
+  
+Resources:
+  E2193CFInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-02354e95b39ca8dec # EC2 olusturuldugunda ilk sayfada yazan kimlik.
+      InstanceType: t2.micro
+      KeyName: aws_key # Olusturulan key. Burada inbound parametreleri SHH anywhre secildi.
+      SecurityGroups:
+        - launch-wizard-2 # Bizim olusturdugumuz SSH security grup.
+      Tags:
+        - Key: Name # Olusan tag adi Name olsun.
+          Value: Project-101  # Name adi Value degeri olsun.
+
+

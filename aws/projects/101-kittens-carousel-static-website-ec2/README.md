@@ -52,9 +52,12 @@ Kittens Carousel is a static website application deployed with Apache Web Server
 ### At the end of the project, following topics are to be covered;
 
 - Apache Web Server Installation on Linux
-
+sudo yum -y install httpd
 - Static Website Deployment
-
+sudo service httpd start
+sudo chkconfig httpd on
+cd /var/www/html 
+sudo wget ...raw adresi
 - Bash scripting
 
 - AWS EC2 Service
