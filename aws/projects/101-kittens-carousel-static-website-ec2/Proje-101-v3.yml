@@ -1,0 +1,60 @@
+Resources:
+  E2193CFInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-02354e95b39ca8dec
+      InstanceType: t2.micro
+      KeyName: aws_key
+      SecurityGroups:
+        - !Ref  MySecurityGroups
+      Tags:
+        - Key: Name
+          Value: Project-101
+      UserData:    
+        Fn::Base64:
+          !Sub |
+          #! /bin/bash
+          yum update -y
+          yum install -y httpd
+          DATE_TIME=`date`
+          cd /var/www/html
+          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/index.html
+          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
+          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
+          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
+          systemctl start httpd
+          systemctl enable httpd     
+          
+  MySecurityGroups:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http and ssh to client host
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: 0.0.0.0/0
+
+
+
+Outputs:
+  InstanceId:
+    Description: InstanceId of the first EC2 instance
+    Value: !Ref E2193CFInstance
+  PublicDNS:
+    Description: Public DNS Name of the EC2 instance
+    Value: !GetAtt 
+      - E2193CFInstance
+      - PublicDnsName
+  PublicIP:
+    Description: Public IP address of the EC2 instance
+    Value: !GetAtt 
+      - E2193CFInstance
+      - PublicIp
+  WebURL:
+    Value: !Sub 'http://${E2193CFInstance.PublicDnsName}'
+    Description: URL for Webpage     
