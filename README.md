@@ -1,4 +1,4 @@
-# AWS & DevOps EU Cohort 4/20 Workshop
+# My AWS & DevOps Workshop
 
 This private workshop repository contains projects, hands-on training, coding challenges, and class-notes of me.
 
