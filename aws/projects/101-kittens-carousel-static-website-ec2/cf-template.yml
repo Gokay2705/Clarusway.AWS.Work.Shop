@@ -39,23 +39,15 @@ Resources:
         Fn::Base64:
           !Sub |
           #! /bin/bash
-          yum update -y
-          yum install -y httpd
-          DATE_TIME=`date`
-          cd /var/www/html
-          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/index.html
-          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
-          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
-          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
-          systemctl start httpd
-          systemctl enable httpd 
-
-
-
-        Volumes:
-          - Volume
-    
-    
-
+            yum update -y
+            yum install -y httpd
+            DATE_TIME=`date`
+            cd /var/www/html
+            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/index.html
+            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat0.jpg
+            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat1.jpg
+            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
+            systemctl start httpd
+            systemctl enable httpd 
   
 Outputs:
