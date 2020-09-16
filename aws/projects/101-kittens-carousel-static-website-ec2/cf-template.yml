@@ -1,4 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
+
 Description: |
   Cloudformation Template for Kittens Carousel Static Website on EC2. This template deploys 
   Kittens Carousel Static website on Amazon Linux 2 EC2 Instance with custom security group 
@@ -6,7 +7,27 @@ Description: |
   repository, then deployed on Apache Web Server.
 
   Project-101 - Kittens Carousel Static Website deployed on AWS EC2 using Cloudformation.
-  
+Parameters:
+  InstanceType:
+    Description: WebServer EC2 instance type. Please select an instance type
+    Default: t2.micro
+    Type: String
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.medium
+      - m1.large
+      - m1.xlarge
+      - m2.xlarge
+      - m2.2xlarge
+      - m2.4xlarge
+      - m3.xlarge
+      - m3.2xlarge
+      - c1.medium
+      - c1.xlarge
+      - cc1.4xlarge
+      - cc2.8xlarge
+      - cg1.4xlarge
 Resources:
   WebServerSecGrp:
     Type: "AWS::EC2::SecurityGroup"
@@ -14,33 +35,31 @@ Resources:
       GroupDescription: Enable HTTP for Apache Server and SSH for terminal.
       SecurityGroupIngress:
         - IpProtocol: tcp
-        FromPort: 80
-        ToPort: 80
-        CidrIp: 0.0.0.0/0
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
-        FromPort: 22
-        ToPort: 22
-        CidrIp: 0.0.0.0/0
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+  WebServerHost:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: ami-0c94855ba95c71c99
+      InstanceType: t2.micro
+      KeyName: aws_key
+      SecurityGroupIds:
+        - !Ref WebServerSecGrp
       Tags:
-        Key: Name
-        Value: Cloud Formation Security Group
-    WebServerHost:
-      Type: "AWS::EC2::Instance"
-      Properties:
-        ImageId: ami-0c94855ba95c71c99
-        InstanceType: t2.micro
-        KeyName: aws_key
-        SecurityGroupIds:
-          - !Ref WebServerSecGrp
-        Tags:
+        -
           Key: Name
           Value: !Sub Web Server of ${AWS::StackName} Stack
-        UserData:
+      UserData:
         Fn::Base64:
           !Sub |
-          #! /bin/bash
+            #! /bin/bash
             yum update -y
-            yum install -y httpd
+            yum install httpd -y
             DATE_TIME=`date`
             cd /var/www/html
             wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/index.html
@@ -49,5 +68,9 @@ Resources:
             wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/101-kittens-carousel-static-website-ec2/static-web/cat2.jpg
             systemctl start httpd
             systemctl enable httpd 
-  
 Outputs:
+  WebURL:
+    Value: !Sub 
+      - http://${PublicAddress}
+      - PublicAddress: !GetAtt WebServerHost.PublicDnsName
+    Description: Kittens Carousel Static Website URL
