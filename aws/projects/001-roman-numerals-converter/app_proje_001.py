@@ -1,5 +1,7 @@
 
 
+from flask import Flask, render_template, request, redirect, url_for 
+
 def Dec_to_Roman(number_decimal):
     val = [
         1000, 900, 500, 400,
@@ -22,8 +24,6 @@ def Dec_to_Roman(number_decimal):
             number_decimal -= val[i]
         i += 1
     return number_roman
-
-from flask import Flask, render_template, request, redirect, url_for 
 
 app = Flask (__name__)
 
