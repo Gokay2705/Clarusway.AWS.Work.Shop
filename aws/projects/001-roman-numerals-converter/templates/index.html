@@ -61,12 +61,12 @@
 
   <div><img src="https://clarusway.com/wp-content/uploads/2020/06/clarusway_logo.png" /></div>
 
-  <h2>Project : Roman Numerals Converter Application</h2>
-  <p>This application converts decimal numbers to Roman numerals. Only numbers from 1 to 3999 are allowed.</p><br>
+  <h2><center>Project : Roman Numerals Converter Application</center></h2>
+  <p><center>This application converts decimal numbers to Roman numerals. Only numbers from 1 to 3999 are allowed.</center></p><br>
 
-  <form action="/" method="post">
-    <label for="number"><b>Please enter a number:</b></label>
-    <input placeholder="50" name="number" id="number" required />
+  <form action="/result" method="POST">
+    <label for="number_decimal"><b>Please enter a number:</b></label>
+    <input type="number" placeholder="2193" name="number_decimal" id="number_decimal" required />
     <button type="submit">Submit</button>
     {% if not_valid %}
     <p class="warning"><b>Not Valid! Please enter a number between 1 and 3999, inclusively.</b></p>

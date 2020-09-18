@@ -39,16 +39,18 @@
 
     <div><img src="https://clarusway.com/wp-content/uploads/2020/06/clarusway_logo.png" /></div>
 
-    <h2>Project : Roman Numerals Converter Application</h2>
+    <h2><centere>Project : Roman Numerals Converter Application</centere></h2>
     <br>
-
-
     <h3><b>Result:</b></h3>
+    {% if number_roman %} 
     <p>Number <span class="result"> <b> {{ number_decimal }}</b> </span>equals to <span class="result"><b>{{ number_roman }}</b></span> in Roman Numerals</p><br><br>
-
-
+    
     <p class="footnote"><i>This app is developed in Python by <b>{{ developer_name }}</b> and deployed with Flask on AWS
-            EC2 Instance using AWS Clouldformation Service.</i></p>
+        EC2 Instance using AWS Clouldformation Service.</i></p>
+    {% else %}
+    <p>Hesaplama Yapilamadi!</p>
+    {% endif %}
+        
 </body>
 
 </html>
