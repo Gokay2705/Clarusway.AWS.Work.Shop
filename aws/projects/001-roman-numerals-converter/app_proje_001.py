@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for 
 
+developer_name = "E2193 Mustafa"
 def Dec_to_Roman(number_decimal):
     val = [
         1000, 900, 500, 400,
@@ -29,13 +30,13 @@ app = Flask (__name__)
 
 @app.route("/")
 def index():
-    return render_template("index.html", developer_name = "E2193 Mustafa")
+    return render_template("index.html", developer_name = developer_name)
 
 @app.route('/result', methods = ["GET", "POST"])
 def result():
     if request.method == "POST":
         number_decimal = request.form.get("number_decimal")
-        return render_template("result.html", developer_name = "E2193 Mustafa", number_decimal = number_decimal, number_roman = Dec_to_Roman(int(number_decimal)))
+        return render_template("result.html", developer_name = developer_name, number_decimal = number_decimal, number_roman = Dec_to_Roman(int(number_decimal)))
     else:
         return render_template("index.html")
 
