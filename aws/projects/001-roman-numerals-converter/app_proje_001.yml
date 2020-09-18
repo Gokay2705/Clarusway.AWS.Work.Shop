@@ -55,7 +55,7 @@ Resources:
             #! /bin/bash
             yum update -y
             yum install httpd -y
-            yum install pip3
+            yum install python3 -y
             DATE_TIME=`date`
             cd /var/www/html
             wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/templates/index.html
