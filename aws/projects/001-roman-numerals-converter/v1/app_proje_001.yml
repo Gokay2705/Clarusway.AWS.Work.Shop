@@ -58,11 +58,11 @@ Resources:
             yum install python3 -y
             DATE_TIME=`date`
             cd /var/www/html
-            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v2/app_proje_001.v2.py
+            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v1/app_proje_001.v1.py
             mkdir templates
             cd templates
-            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v2/templates/index.html
-            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v2/templates/result.html
+            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v1/templates/index.html
+            wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v1/templates/result.html
             python3 app_proje_001.v1.py
             cd ..
  
