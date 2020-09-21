@@ -4,8 +4,8 @@ Description: |
   
 Parameters: # completed
   VpcId:
-    Description: VpcId of my existing Virtual Private Cloud(VPC)
     Type: AWS::EC2::VPC::Id
+    Description: VpcId of my existing Virtual Private Cloud(VPC)
   InstanceType:
     Description: Web Server EC2 Instance Type
     Type: String

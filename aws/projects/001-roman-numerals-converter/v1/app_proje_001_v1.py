@@ -21,7 +21,7 @@ def romenconvert(num):
 def index():
     developer_name = "E2193 Mustafa"
     if request.method == "POST":
-        number_decimal = request.form.get("sayi")
+        number_decimal = request.form.get("number")
         number_roman = romenconvert(number_decimal)
         return render_template("result.html", number_decimal = number_decimal, number_roman = number_roman, developer_name = developer_name)
     else:
