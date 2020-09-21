@@ -32,7 +32,7 @@ app = Flask (__name__)
 def index():
     return render_template("index.html", developer_name = developer_name)
 
-@app.route('/result', methods = ["GET", "POST"])
+@app.route("/result", methods = ["GET", "POST"])
 def result():
     if request.method == "POST":
         number_decimal = request.form.get("number_decimal")
