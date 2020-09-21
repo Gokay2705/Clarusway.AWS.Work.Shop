@@ -1,45 +1,32 @@
+from flask import Flask, url_for, render_template, request
 
+app = Flask(__name__)
 
-from flask import Flask, render_template, request, url_for 
+def romenconvert(num):
+    num_map = [(1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'), (100, 'C'), (90, 'XC'),
+           (50, 'L'), (40, 'XL'), (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')]
+    num=int(num)
+    if num>4000 or num<1:
+        return ("Not Valid Input !!!")
+    else :
+        roman = ''
+        while num > 0:
+            for i, r in num_map:
+                while num >= i:
+                    roman += r
+                    num -= i
+        return roman
 
-app = Flask (__name__)
-
-def Dec_to_Roman(number_decimal):
-    val = [
-        1000, 900, 500, 400,
-        100, 90, 50, 40,
-        10, 9, 5, 4,
-        1
-        ]
-    syb = [
-        "M", "CM", "D", "CD",
-        "C", "XC", "L", "XL",
-        "X", "IX", "V", "IV",
-        "I"
-        ]
-    number_roman = ''
-    i = 0
-        
-    while  number_decimal > 0 and number_decimal < 4000:
-        for _ in range(number_decimal // val[i]):
-            number_roman += syb[i]
-            number_decimal -= val[i]
-        i += 1
-    return number_roman
-
-
-
-@app.route("/", methods = ["GET", "POST"])
+@app.route("/", methods = ["POST", "GET"])
 def index():
     developer_name = "E2193 Mustafa"
     if request.method == "POST":
-        number_decimal = request.form.get("number_decimal")
-        number_roman = Dec_to_Roman(int(number_decimal))
-        return render_template("result.html", developer_name = developer_name, number_decimal = number_decimal, number_roman = number_roman)
+        number_decimal = request.form.get("sayi")
+        number_roman = romenconvert(number_decimal)
+        return render_template("result.html", number_decimal = number_decimal, number_roman = number_roman, developer_name = developer_name)
     else:
         return render_template("index.html", developer_name = developer_name)
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
-    app.run(host='0.0.0.0', port=80)
+    #app.run(debug = True)
+    app.run(host="0.0.0.0", port=80)

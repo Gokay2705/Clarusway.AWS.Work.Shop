@@ -64,8 +64,8 @@
     <p>This application converts decimal numbers to Roman numerals. Only numbers from 1 to 3999 are allowed.</p><br>
 
     <form action="/" method="post">
-        <label for="number_decimal"><b>Please enter a number:</b></label>
-        <input placeholder="50" name="number_decimal" id="number_decimal" required />
+        <label for="number"><b>Please enter a number:</b></label>
+        <input placeholder="50" name="sayi" id="number" required />
         <button type="submit">Submit</button> {% if not_valid %}
         <p class="warning"><b>Not Valid! Please enter a number between 1 and 3999, inclusively.</b></p>
         {% endif %}
