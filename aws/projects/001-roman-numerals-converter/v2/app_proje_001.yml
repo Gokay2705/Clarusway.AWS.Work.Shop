@@ -54,10 +54,8 @@ Resources:
           !Sub |
             #! /bin/bash
             yum update -y
-            yum install httpd -y
             yum install python3 -y
-            DATE_TIME=`date`
-            cd /var/www/html
+            pip3 install flask
             wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v2/app_proje_001_v2.py
             mkdir templates
             cd templates
@@ -65,8 +63,6 @@ Resources:
             wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v2/templates/result.html
             cd ..
             python3 app_proje_001_v2.py
-            systemctl start httpd
-            systemctl enable httpd 
              
 Outputs:
   WebURL:

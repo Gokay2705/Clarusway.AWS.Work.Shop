@@ -54,8 +54,8 @@ Resources:
           !Sub |
             #! /bin/bash
             yum update -y
-            pip3 install flask
             yum install python3 -yl
+            pip3 install flask
             wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v1/app_proje_001_v1.py
             mkdir templates
             cd templates
