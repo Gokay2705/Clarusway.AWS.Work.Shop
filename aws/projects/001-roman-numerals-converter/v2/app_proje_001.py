@@ -1,8 +1,9 @@
 
 
-from flask import Flask, render_template, request, redirect, url_for 
+from flask import Flask, render_template, request, url_for 
 
-developer_name = "E2193 Mustafa"
+app = Flask (__name__)
+
 def Dec_to_Roman(number_decimal):
     val = [
         1000, 900, 500, 400,
@@ -26,9 +27,9 @@ def Dec_to_Roman(number_decimal):
         i += 1
     return number_roman
 
-app = Flask (__name__)
+developer_name = "E2193 Mustafa"
 
-@app.route("/")
+@app.route("/", methods = ["GET", "POST"])
 def index():
     return render_template("index.html", developer_name = developer_name)
 
