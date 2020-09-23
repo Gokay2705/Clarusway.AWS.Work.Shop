@@ -67,8 +67,21 @@ def emails():
         user_name = request.form['username']
         user_emails = find_emails(user_name)
         return render_template('emails.html', name_emails=user_emails, keyword=user_name, show_result=True)
+    else: 
+        return render_template('emails.html', show_result = False)
+#Write a function named `add_email` which inserts new email to the database using `GET` and `POST` methods,
+# using template files named `add-email.html` given under `templates` folder
+# and assign to the static route of ('add')
+@app.route('/add', methods =['GET','POST'])
+def add_email():
+    if request.method == 'POST':
+        user_name =request.form['username']
+        user_email = request.form['useremail']
+        result = insert_email(user_name, user_email)
+        return render_template('add-email.html', result_html=result, show_result=True)
     else:
-        return render_template("emails.html", show_result = False)
-
-
-
+        return render_template('add-email.html', show_result=False)
+# Add a statement to run the Flask application which can be reached from any host on port 80.
+if __name__ =='__main__':
+    app.run(debug=True)
+    #app.run(host='0.0.0.0', port=80)
