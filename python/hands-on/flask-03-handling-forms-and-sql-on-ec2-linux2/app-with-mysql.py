@@ -6,10 +6,10 @@ from flaskext.mysql import MySQL
 app = Flask(__name__)
 
 # Configure mysql database
-app.config['MYSQL_DATABASE_HOST'] = 'myrds.cqifj5ae6tdh.us-east-1.rds.amazonaws.com'
+app.config['MYSQL_DATABASE_HOST'] = 'database-1.cqifj5ae6tdh.us-east-1.rds.amazonaws.com'
 app.config['MYSQL_DATABASE_USER'] = 'admin'
 app.config['MYSQL_DATABASE_PASSWORD'] = '123456789'
-app.config['MYSQL_DATABASE_DB'] = 'myrds'
+app.config['MYSQL_DATABASE_DB'] = 'clarusway'
 app.config['MYSQL_DATABASE_PORT'] = 3306
 mysql = MySQL()
 mysql.init_app(app)
@@ -20,24 +20,24 @@ cursor = connection.cursor()
 # Create users table within MySQL db and populate with sample data
 # Execute the code below only once.
 # Write sql code for initializing users table..
-drop_table = 'DROP TABLE IF EXISTS users;'
-users_table = """
-CREATE TABLE users (
-  username varchar(50) NOT NULL,
-  email varchar(50),
-  PRIMARY KEY (username)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-"""  # Bu kullanım aslında sqlite ile aynı şeyi ifade etmekle birlikte bazı mysql convention'dan dolayı küçük farklılıklar ouşmaktadır. Bunlardan biri varchar olarak 50 dememiz gerekiyor burada. Ayrıca en sonda ENGINE tipi belirtmemiz gerekmektedir.
-data = """
-INSERT INTO myrds.users 
-VALUES 
-    ("Levent Akyuz", "levent.akyuz@gmail.com"),
-    ("Mustafa Kanat", "mustafa.kanat@yahoo.com"),
-	("Hakan Sule", "hakan.sule@clarusway.com");
-"""
-cursor.execute(drop_table)
-cursor.execute(users_table)
-cursor.execute(data)
+#drop_table = 'DROP TABLE IF EXISTS users;'
+#users_table = """
+#CREATE TABLE users (
+  #username varchar(50) NOT NULL,
+  #email varchar(50),
+  #PRIMARY KEY (username)
+#) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+#"""  # Bu kullanım aslında sqlite ile aynı şeyi ifade etmekle birlikte bazı mysql convention'dan dolayı küçük farklılıklar ouşmaktadır. Bunlardan biri varchar olarak 50 dememiz gerekiyor burada. Ayrıca en sonda ENGINE tipi belirtmemiz gerekmektedir.
+#data = """
+#INSERT INTO clarusway.users 
+#VALUES 
+#    ("Levent Akyuz", "levent.akyuz@gmail.com"),
+#    ("Mustafa Kanat", "mustafa.kanat@yahoo.com"),
+#	("Hakan Sule", "hakan.sule@clarusway.com");
+#"""
+#cursor.execute(drop_table)
+#cursor.execute(users_table)
+#cursor.execute(data)
 # cursor.close()
 # connection.close()
 
