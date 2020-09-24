@@ -46,7 +46,7 @@ def insert_email(name, email):
     """
     result = db.session.execute(query)
     if name == None or email == None:
-        response = 'Username or email can not be empty'
+        response = 'Username or email can not be empty!'
     elif not any(result):
         insert = f"""
         INSERT INTO users 
@@ -56,7 +56,7 @@ def insert_email(name, email):
         db.session.commit()
         response =f'User {name} added successfully'
     else:
-        response = f'User {name} already exist.'
+        response = f'Sorry user {name} already exist!'
     return response
 # Write a function named `emails` which finds email addresses by keyword using `GET` and `POST` methods,
 #using template files named `emails.html` given under `templates` folder
@@ -83,5 +83,5 @@ def add_email():
         return render_template('add-email.html', show_result=False)
 # Add a statement to run the Flask application which can be reached from any host on port 80.
 if __name__ =='__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
     app.run(host='0.0.0.0', port=80)
