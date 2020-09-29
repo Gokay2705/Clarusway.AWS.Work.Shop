@@ -1,0 +1,309 @@
+# EBL VOLUME OLUSTURMA
+
+1. 	lsblk :hard disk ozelliklerini verir.
+	xvda    202:0    0   8G  0 disk
+	└─xvda1 202:1    0   8G  0 part /
+	xvdf    202:80   0   2G  0 disk #attached edilen hard disk
+
+2.	sudo file -s /dev/xvdf #olusturulan diskin formatini verir.
+
+3.	sudo mkfs -t ext4 /dev/xvdf #ext4 formatinda formatladik.
+
+4.	sudo file -s /dev/xvdf
+	/dev/xvdf: Linux rev 1.0 ext4 filesystem data, UUID=5de968ec-3713-4d77-8da3-f001c4b192a9 (extents) (64bit) (large files) (huge files)
+
+5.	sudo mkdir /mnt/2nd-volume/ # mnt klasoru altinda 2nd-volume klasoru olusturuldu.
+
+6. 	cd /mnt/2nd-volume # 2nd-volume klasorunun icine girdik.
+
+7.	sudo mount /dev/xvdf /mnt/2nd-volume/ # ekledik (mount ettik)
+
+8.	lsblk
+	NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+	xvda    202:0    0   8G  0 disk
+	└─xvda1 202:1    0   8G  0 part /
+	xvdf    202:80   0   2G  0 disk /mnt/2nd-volume
+	
+9.	 df -h # dosyalarimiz ve kullanilan miktari verir.
+	Filesystem      Size  Used Avail Use% Mounted on
+	devtmpfs        474M     0  474M   0% /dev
+	tmpfs           492M     0  492M   0% /dev/shm
+	tmpfs           492M  460K  492M   1% /run
+	tmpfs           492M     0  492M   0% /sys/fs/cgroup
+	/dev/xvda1      8.0G  1.3G  6.7G  17% /
+	tmpfs            99M     0   99M   0% /run/user/1000
+	tmpfs            99M     0   99M   0% /run/user/0
+	/dev/xvdf       2.0G  6.0M  1.8G   1% /mnt/2nd-volume
+
+# 2 GB alan uzerine ekleme yaptik.
+10.	lsblk
+	NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+	xvda    202:0    0   8G  0 disk
+	└─xvda1 202:1    0   8G  0 part /
+	xvdf    202:80   0   3G  0 disk /mnt/2nd-volume
+
+11. df -h
+	Filesystem      Size  Used Avail Use% Mounted on
+	devtmpfs        474M     0  474M   0% /dev
+	tmpfs           492M     0  492M   0% /dev/shm
+	tmpfs           492M  460K  492M   1% /run
+	tmpfs           492M     0  492M   0% /sys/fs/cgroup
+	/dev/xvda1      8.0G  1.3G  6.7G  17% /
+	tmpfs            99M     0   99M   0% /run/user/1000
+	tmpfs            99M     0   99M   0% /run/user/0
+	/dev/xvdf       2.0G  6.1M  1.8G   1% /mnt/2nd-volume
+
+12.	sudo resize2fs /dev/xvdf # ekledigimiz 2gb uzerine 1gb ekleme yaptik.
+	resize2fs 1.42.9 (28-Dec-2013)
+	Filesystem at /dev/xvdf is mounted on /mnt/2nd-volume; on-line resizing required
+	old_desc_blocks = 1, new_desc_blocks = 1
+	The filesystem on /dev/xvdf is now 786432 blocks long.
+
+13.	df -h
+	Filesystem      Size  Used Avail Use% Mounted on
+	devtmpfs        474M     0  474M   0% /dev
+	tmpfs           492M     0  492M   0% /dev/shm
+	tmpfs           492M  460K  492M   1% /run
+	tmpfs           492M     0  492M   0% /sys/fs/cgroup
+	/dev/xvda1      8.0G  1.3G  6.7G  17% /
+	tmpfs            99M     0   99M   0% /run/user/1000
+	tmpfs            99M     0   99M   0% /run/user/0
+	/dev/xvdf       2.9G  6.1M  2.8G   1% /mnt/2nd-volume
+
+14.	sudo reboot now # instance reboot ettik.
+
+15.	lsblk
+	NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+	xvda    202:0    0   8G  0 disk
+	└─xvda1 202:1    0   8G  0 part /
+	xvdf    202:80   0   3G  0 disk
+
+16.	df -h
+	Filesystem      Size  Used Avail Use% Mounted on
+	devtmpfs        474M     0  474M   0% /dev
+	tmpfs           492M     0  492M   0% /dev/shm
+	tmpfs           492M  404K  492M   1% /run
+	tmpfs           492M     0  492M   0% /sys/fs/cgroup
+	/dev/xvda1      8.0G  1.4G  6.7G  17% /
+	tmpfs            99M     0   99M   0% /run/user/1000
+
+17.	sudo file -s /dev/xvdf
+	/dev/xvdf: Linux rev 1.0 ext4 filesystem data, UUID=5de968ec-3713-4d77-8da3-f001c4b192a9 (extents) (64bit) (large files) (huge files)	
+
+18.	sudo mount /dev/xvdf /mnt/2nd-volume/
+
+19.	lsblk
+	NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+	xvda    202:0    0   8G  0 disk
+	└─xvda1 202:1    0   8G  0 part /
+	xvdf    202:80   0   3G  0 disk /mnt/2nd-volume
+
+20.	df -h
+	Filesystem      Size  Used Avail Use% Mounted on
+	devtmpfs        474M     0  474M   0% /dev
+	tmpfs           492M     0  492M   0% /dev/shm
+	tmpfs           492M  404K  492M   1% /run
+	tmpfs           492M     0  492M   0% /sys/fs/cgroup
+	/dev/xvda1      8.0G  1.4G  6.7G  17% /
+	tmpfs            99M     0   99M   0% /run/user/1000
+	/dev/xvdf       2.9G  6.1M  2.8G   1% /mnt/2nd-volume # xvdg YOK
+
+# 1 GB daha ek alan ekledik. Participition yapacagiz. Windows uzeindeki C ve D gibi.
+21.	lsblk
+	NAME    MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+	xvda    202:0    0   8G  0 disk
+	└─xvda1 202:1    0   8G  0 part /
+	xvdf    202:80   0   3G  0 disk /mnt/2nd-volume
+	xvdg    202:96   0   1G  0 disk
+
+22.	sudo fdisk -l
+	Disk /dev/xvda: 8 GiB, 8589934592 bytes, 16777216 sectors
+	Units: sectors of 1 * 512 = 512 bytes
+	Sector size (logical/physical): 512 bytes / 512 bytes
+	I/O size (minimum/optimal): 512 bytes / 512 bytes
+	Disklabel type: gpt
+	Disk identifier: 66F46060-ED00-4D14-9841-F5CB6310A14A
+
+	Device       Start      End  Sectors Size Type
+	/dev/xvda1    4096 16777182 16773087   8G Linux filesystem
+	/dev/xvda128  2048     4095     2048   1M BIOS boot
+
+	Partition table entries are not in disk order.
+
+
+	Disk /dev/xvdf: 3 GiB, 3221225472 bytes, 6291456 sectors
+	Units: sectors of 1 * 512 = 512 bytes
+	Sector size (logical/physical): 512 bytes / 512 bytes
+	I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+	Disk /dev/xvdg: 1 GiB, 1073741824 bytes, 2097152 sectors
+	Units: sectors of 1 * 512 = 512 bytes
+	Sector size (logical/physical): 512 bytes / 512 bytes
+	I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+23.	sudo fdisk /dev/xvdg
+
+	Welcome to fdisk (util-linux 2.30.2).
+	Changes will remain in memory only, until you decide to write them.
+	Be careful before using the write command.
+
+	Device does not contain a recognized partition table.
+	Created a new DOS disklabel with disk identifier 0xa56201ec.
+
+	Command (m for help): m # bize menu icinde komutlar ve aciklamalar cikaracak.
+	
+	Help:
+
+  DOS (MBR)
+   a   toggle a bootable flag
+   b   edit nested BSD disklabel
+   c   toggle the dos compatibility flag
+
+  Generic
+   d   delete a partition
+   F   list free unpartitioned space
+   l   list known partition types
+   n   add a new partition
+   p   print the partition table
+   t   change a partition type
+   v   verify the partition table
+   i   print information about a partition
+
+  Misc
+   m   print this menu
+   u   change display/entry units
+   x   extra functionality (experts only)
+
+  Script
+   I   load disk layout from sfdisk script file
+   O   dump disk layout to sfdisk script file
+
+  Save & Exit
+   w   write table to disk and exit
+   q   quit without saving changes
+
+  Create a new label
+   g   create a new empty GPT partition table
+   G   create a new empty SGI (IRIX) partition table
+   o   create a new empty DOS partition table
+   s   create a new empty Sun partition table
+
+24.	Command (m for help): n
+	Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+
+25.	Command (m for help): n
+	Partition type
+	   p   primary (0 primary, 0 extended, 4 free)
+	   e   extended (container for logical partitions)
+	Select (default p): p
+	Partition number (1-4, default 1): 1
+	First sector (2048-2097151, default 2048):
+	Last sector, +sectors or +size{K,M,G,T,P} (2048-2097151, default 2097151):
+
+Created a new partition 1 of type 'Linux' and of size 1023 MiB.
+
+26.	Command (m for help): n
+	All space for primary partitions is in use.
+
+27.	Command (m for help): w # KAYDET
+	The partition table has been altered.
+	Calling ioctl() to re-read partition table.
+	Syncing disks.
+
+28.	lsblk
+	NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+	xvda    202:0    0    8G  0 disk
+	└─xvda1 202:1    0    8G  0 part /
+	xvdf    202:80   0    3G  0 disk /mnt/2nd-volume
+	xvdg    202:96   0    1G  0 disk
+	└─xvdg1 202:97   0 1023M  0 part
+
+29.	df -h
+	Filesystem      Size  Used Avail Use% Mounted on
+	devtmpfs        474M     0  474M   0% /dev
+	tmpfs           492M     0  492M   0% /dev/shm
+	tmpfs           492M  468K  492M   1% /run
+	tmpfs           492M     0  492M   0% /sys/fs/cgroup
+	/dev/xvda1      8.0G  1.4G  6.7G  17% /
+	tmpfs            99M     0   99M   0% /run/user/1000
+	/dev/xvdf       2.9G  6.1M  2.8G   1% /mnt/2nd-volume
+	tmpfs            99M     0   99M   0% /run/user/0
+
+30.	sudo mkfs -t ext4 /dev/xvdg1 # xvdg1 formatladik.
+	mke2fs 1.42.9 (28-Dec-2013)
+	Filesystem label=
+	OS type: Linux
+	Block size=4096 (log=2)
+	Fragment size=4096 (log=2)
+	Stride=0 blocks, Stripe width=0 blocks
+	65536 inodes, 261888 blocks
+	13094 blocks (5.00%) reserved for the super user
+	First data block=0
+	Maximum filesystem blocks=268435456
+	8 block groups
+	32768 blocks per group, 32768 fragments per group
+	8192 inodes per group
+	Superblock backups stored on blocks:
+			32768, 98304, 163840, 229376
+
+	Allocating group tables: done
+	Writing inode tables: done
+	Creating journal (4096 blocks): done
+	Writing superblocks and filesystem accounting information: done
+
+31.	sudo mkdir /mnt/3rd-volume
+
+32.	sudo mount /dev/xvdg1 /mnt/3rd-volume
+
+33.	lsblk
+	NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+	xvda    202:0    0    8G  0 disk
+	└─xvda1 202:1    0    8G  0 part /
+	xvdf    202:80   0    3G  0 disk /mnt/2nd-volume
+	xvdg    202:96   0    1G  0 disk
+	└─xvdg1 202:97   0 1023M  0 part /mnt/3rd-volume
+
+1gb alana 1gb daha ekledik.
+34. lsblk
+	NAME    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+	xvda    202:0    0    8G  0 disk
+	└─xvda1 202:1    0    8G  0 part /
+	xvdf    202:80   0    3G  0 disk /mnt/2nd-volume
+	xvdg    202:96   0    2G  0 disk
+	└─xvdg1 202:97   0 1023M  0 part /mnt/3rd-volume
+
+35.	sudo growpart /dev/xvdg 1
+	CHANGED: partition=1 start=2048 old: size=2095104 end=2097152 new: size=4192223 end=4194271
+	
+36.	sudo resize2fs /dev/xvdg1
+	resize2fs 1.42.9 (28-Dec-2013)
+	Filesystem at /dev/xvdg1 is mounted on /mnt/3rd-volume; on-line resizing required
+	old_desc_blocks = 1, new_desc_blocks = 1
+	The filesystem on /dev/xvdg1 is now 524027 blocks long.
+
+37.	cd /mnt/3rd-volume
+	ls
+	lost+found  new_file.txt
+
+38.	sudo reboot now
+	#hersey gitmis.
+
+# acilista eski yaptigim partitions gorunsun.	
+39.	cd /etc/
+	ls
+	cat fstab
+	#
+	UUID=c4a7b168-d67a-4e0f-9a50-8518fb8c45a5     /           xfs    defaults,noatime  1   1	
+	sudo cp fstab fstab.bak # yedegini aldik.
+	sudo nano fstab
+	#
+	UUID=c4a7b168-d67a-4e0f-9a50-8518fb8c45a5     /           xfs    defaults,noatime  1   1
+	/dev/xdvf        /mnt/2nd-volume       ext4      defaults,naantime     0    0
+	/dev/xdvg       /mnt/3rd-volume        ext4      defaults,noantime     0    0
+
+40.	sudo reboot now
+
+
