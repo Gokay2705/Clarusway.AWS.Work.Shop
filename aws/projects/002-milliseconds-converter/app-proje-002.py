@@ -18,8 +18,8 @@ def convert(milliseconds):
     # calculate the seconds within remainder milliseconds
     seconds = milliseconds_left // 1000
     # format the output string
-    result = f'{hours} hour/s'*(hours != 0) + f' {minutes} minute/s'*(minutes != 0) + f' {seconds} second/s' *(seconds != 0) or f'just {milliseconds} millisecond/s' * (milliseconds < 1000)
-    return result
+    return f'{hours} hour/s'*(hours != 0) + f' {minutes} minute/s'*(minutes != 0) + f' {seconds} second/s' *(seconds != 0) or f'just {milliseconds} millisecond/s' * (milliseconds < 1000)
+
 
 @app.route("/", methods = ["POST", "GET"])
 def index():
