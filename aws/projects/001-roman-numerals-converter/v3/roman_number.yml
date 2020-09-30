@@ -69,10 +69,10 @@ Resources:
           wget -P templates https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v3/templates/index.html
           wget -P templates https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v3/templates/result.html
           python3 app.py
-          
+
 Outputs:
     WebURL:
     Value: !Sub 
       - http://${PublicAddress}
       - PublicAddress: !GetAtt WebServerHost.PublicDnsName
-    Description: Roman numerals Website URL
+    Description: Project Website URL
