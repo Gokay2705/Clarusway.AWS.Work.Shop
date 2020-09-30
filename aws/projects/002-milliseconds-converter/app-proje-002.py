@@ -2,6 +2,7 @@ from flask import Flask, url_for, render_template, request
 
 app = Flask(__name__)
 
+result = ''
 def convert(milliseconds):
     # one hour in milliseconds
     hour_in_milliseconds = 60*60*1000
@@ -19,7 +20,7 @@ def convert(milliseconds):
     seconds = milliseconds_left // 1000
     # format the output string
     return f'{hours} hour/s'*(hours != 0) + f' {minutes} minute/s'*(minutes != 0) + f' {seconds} second/s' *(seconds != 0) or f'just {milliseconds} millisecond/s' * (milliseconds < 1000)
-
+   
 
 @app.route("/", methods = ["POST", "GET"])
 def index():
