@@ -56,4 +56,4 @@ Outputs:
     Value: !Sub 
       - http://${PublicAddress}
       - PublicAddress: !GetAtt WebServerHost.PublicDnsName
-    Description: Project Website URL
+    Description: Project 001 Website URL
