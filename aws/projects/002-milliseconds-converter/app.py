@@ -11,14 +11,14 @@ def convert(milliseconds):
     hours=(milliseconds/(1000*60*60))%24
     result = ''
     if milliseconds < 1000:
-        print("Just %d millisecond/s" % (milliseconds))
+        result = ("Just %d millisecond/s" % (milliseconds))
     elif milliseconds < 60000:
-        print("%d second/s" % (seconds))
+        result = ("%d second/s" % (seconds))
     elif milliseconds < 360000:
-        print("%d minute/s %d second/s" % (minutes, seconds))
+        result = ("%d minute/s %d second/s" % (minutes, seconds))
     elif milliseconds < (24*360000):
-        print("%d hour/s %d minute/s %d second/s" % (hours, minutes, seconds))
-
+        result = ("%d hour/s %d minute/s %d second/s" % (hours, minutes, seconds))
+    return result
         
 @app.route('/', methods=['GET'])
 def main_get():
@@ -32,7 +32,7 @@ def main_post():
     number = int(alpha)
     if number < 0:
         return render_template('index.html', developer_name='E2193 Mustafa', not_valid=True)
-    return render_template('result.html', milliseconds = number , result = convert(number), developer_name='E2193 Mustafa')
+    return render_template('result.html', number = number , result = convert(number), developer_name='E2193 Mustafa')
 
 if __name__ == "__main__":
     app.run(debug = True)
