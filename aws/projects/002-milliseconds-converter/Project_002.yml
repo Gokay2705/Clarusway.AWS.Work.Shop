@@ -46,10 +46,70 @@ Resources:
           yum install python3 -y
           pip3 install flask
           cd /home/ec2-user
-          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v3/app.py
-          wget -P templates https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v3/templates/index.html
-          wget -P templates https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/001-roman-numerals-converter/v3/templates/result.html
+          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/002-milliseconds-converter/app.py
+          wget -P templates https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/002-milliseconds-converter/templates/index.html
+          wget -P templates https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/002-milliseconds-converter/templates/result.html
           python3 app.py
+
+  MyAutoScalingGroup:
+    Type: "AWS::AutoScaling::AutoScalingGroup"
+    Properties:
+      AvailabilityZones: !GetAZs 
+      DesiredCapacity: 2
+      HealthCheckGracePeriod: 90
+      HealthCheckType: ELB
+      InstanceId: String
+      LaunchConfigurationName: !Ref WebServerHost
+      MaxSize: 3 #required
+      MinSize: 1 #required
+      TargetGroupARNs:
+        - !Ref MyALBTargetGroup
+
+  
+MyApplicationLoadBalancer:
+  Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+  Properties:
+    IpAddressType: String
+    LoadBalancerAttributes:
+      - LoadBalancerAttribute
+    Name: String
+    Scheme: String
+    SecurityGroups:
+      - String
+    SubnetMappings:
+      - SubnetMapping
+    Subnets:
+      - String
+    Tags:
+      - Tag
+    Type: String
+
+  myApplicationLoadBalancer:
+    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+    Properties:
+      SecurityGroups:
+        - !GetAtt mySecurityGroup.GroupId
+      Subnets: !Ref Subnets  
+  myALBListener:
+    Type: "AWS::ElasticLoadBalancingV2::Listener"
+    Properties:
+      DefaultActions: 
+        - Type: forward
+          TargetGroupArn: !Ref myALBTargetGroup
+      LoadBalancerArn: !Ref myApplicationLoadBalancer
+      Port: 80
+      Protocol: HTTP
+  MyALBTargetGroup:
+    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
+    Properties:
+      HealthCheckIntervalSeconds: 25
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 3
+      Port: 80
+      Protocol: HTTP
+      UnhealthyThresholdCount: 3
+      VpcId: !Ref VpcId
+
 
 Outputs:
   WebURL:
