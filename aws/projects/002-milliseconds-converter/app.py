@@ -1,17 +1,15 @@
 from flask import Flask, render_template, request
-from datetime import timedelta
 
 app = Flask(__name__)
 
-# Convert 600000ms (10 minutes) back to duration value. 
+# Convert milliseconds to seconds, minutes and hours.
 def convert(milliseconds):
-    milliseconds = int(milliseconds)
     seconds=(milliseconds/1000)%60
     seconds = int(seconds)
     minutes=(milliseconds/(1000*60))%60
     minutes = int(minutes)
     hours=(milliseconds/(1000*60*60))%24
-
+    result = ''
     if milliseconds < 1000:
         print("Just %d millisecond/s" % (milliseconds))
     elif milliseconds < 60000:
@@ -20,17 +18,21 @@ def convert(milliseconds):
         print("%d minute/s %d second/s" % (minutes, seconds))
     elif milliseconds < (24*360000):
         print("%d hour/s %d minute/s %d second/s" % (hours, minutes, seconds))
-    return
+
         
-@app.route("/", methods = ["POST", "GET"])
-def index():
-    developer_name = "E2193 Mustafa"
-    if request.method == "POST":
-        milliseconds = request.form.get("number")
-        result = convert(milliseconds)
-        return render_template("result.html", milliseconds = milliseconds , result = result, developer_name = developer_name)
-    else:
-        return render_template("index.html", developer_name = developer_name)
+@app.route('/', methods=['GET'])
+def main_get():
+    return render_template('index.html', developer_name='E2193 Mustafa', not_valid=False)
+
+@app.route('/', methods=['POST'])
+def main_post():
+    alpha = request.form['number']
+    if not alpha.isdecimal():
+        return render_template('index.html', developer_name='E2193 Mustafa', not_valid=True)
+    number = int(alpha)
+    if number < 0:
+        return render_template('index.html', developer_name='E2193 Mustafa', not_valid=True)
+    return render_template('result.html', milliseconds = number , result = convert(number), developer_name='E2193 Mustafa')
 
 if __name__ == "__main__":
     app.run(debug = True)
