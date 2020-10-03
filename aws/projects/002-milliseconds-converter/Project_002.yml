@@ -9,7 +9,21 @@ Parameters:
   KeyPairName:
     Description: Enter the name of your KeyPair for SSH and HTTP connections 
     Type: AWS::EC2::KeyPair::KeyName
-    ConstraintDescription: Must one of the exixting EC2 KeyPair  
+    ConstraintDescription: Must one of the exixting EC2 KeyPair 
+
+  VpcId:
+    Description: VpcId of your existing Virtual Private Cloud (VPC)
+    Type: AWS::EC2::VPC::Id
+  
+  Subnets:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: The list of SubnetIds in your Virtual Private Cloud (VPC)
+
+  PolicyTargetValue:
+    Description: Please enter your Target value that triggers the Autoscaling
+    Default: '60'
+    Type: String
+  
     
 Resources:
   MySecGroup:
@@ -65,40 +79,43 @@ Resources:
       TargetGroupARNs:
         - !Ref MyALBTargetGroup
 
+  MyLaunchConfig:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      KeyName: !Ref KeyName
+      ImageId: !FindInMap 
+        - RegionImageMap
+        - !Ref AWS::Region
+        - AMI
   
-MyApplicationLoadBalancer:
-  Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
-  Properties:
-    IpAddressType: String
-    LoadBalancerAttributes:
-      - LoadBalancerAttribute
-    Name: String
-    Scheme: String
-    SecurityGroups:
-      - String
-    SubnetMappings:
-      - SubnetMapping
-    Subnets:
-      - String
-    Tags:
-      - Tag
-    Type: String
-
-  myApplicationLoadBalancer:
+  MyApplicationLoadBalancer:
     Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
     Properties:
       SecurityGroups:
-        - !GetAtt mySecurityGroup.GroupId
-      Subnets: !Ref Subnets  
-  myALBListener:
+        - !Ref MySecGroup
+      Subnets:
+        - !Ref Subnets 
+
+  MyCPUPolicy:
+    Type: "AWS::AutoScaling::ScalingPolicy"
+    Properties:
+      AutoScalingGroupName: !Ref MyAutoScalingGroup
+      PolicyType: TargetTrackingScaling
+      TargetTrackingConfiguration:
+        PredefinedMetricSpecification:
+          PredefinedMetricType: ASGAverageCPUUtilization
+        TargetValue: !Ref PolicyTargetValue
+
+  MyALBListener:
     Type: "AWS::ElasticLoadBalancingV2::Listener"
     Properties:
-      DefaultActions: 
+      DefaultActions: #required
         - Type: forward
-          TargetGroupArn: !Ref myALBTargetGroup
-      LoadBalancerArn: !Ref myApplicationLoadBalancer
-      Port: 80
-      Protocol: HTTP
+          TargetGroupARNs: !Ref MyALBTargetGroup
+      LoadBalancerArn: !Ref MyApplicationLoadBalancer #required
+      Port: 80 #required
+      Protocol: HTTP #required
+
   MyALBTargetGroup:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
@@ -109,6 +126,7 @@ MyApplicationLoadBalancer:
       Protocol: HTTP
       UnhealthyThresholdCount: 3
       VpcId: !Ref VpcId
+
 
 
 Outputs:
