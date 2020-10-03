@@ -35,5 +35,5 @@ def main_post():
     return render_template('result.html', number = number , result = convert(number), developer_name='E2193 Mustafa')
 
 if __name__ == "__main__":
-    app.run(debug = True)
-    #app.run(host="0.0.0.0", port=80)
+    #app.run(debug = True)
+    app.run(host="0.0.0.0", port=80)
