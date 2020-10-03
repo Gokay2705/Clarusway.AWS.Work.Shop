@@ -1,6 +1,9 @@
 AWSTemplateFormatVersion: 2010-09-09
+
 Description: |
-  This is a demo template.
+  CloudFormation Template for Roman Numerals Converter Application. This template creates Python Flask Web Application on Amazon Linux 2 (XXXXXXXXXXXXXXXXX) EC2 Instance with custom security group allowing http connections on port 80.
+  Roman Numerals Converter Application is downloaded from Github repository, then installed on Flask.
+
 Parameters:
   VpcId:
     Type: AWS::EC2::VPC::Id
@@ -46,7 +49,7 @@ Resources:
       AvailabilityZones: !GetAZs 
       LaunchConfigurationName: !Ref myLaunchConfig
       HealthCheckType: ELB
-      HealthCheckGracePeriod: 300
+      HealthCheckGracePeriod: 90
       MinSize: '1'
       MaxSize: '3'
       TargetGroupARNs:
@@ -60,7 +63,9 @@ Resources:
         - RegionImageMap
         - !Ref AWS::Region
         - AMI
-      UserData: !Base64 |
+      UserData:
+        Fn::Base64:
+          !Sub |
           #!/bin/bash
           yum update -y
           yum install python3 -y
@@ -134,9 +139,8 @@ Resources:
     
   
 Outputs:
-  URL:
-    Description: The URL of the website
-    Value: !Join 
-      - ''
-      - - 'http://'
-        - !GetAtt myApplicationLoadBalancer.DNSName
+  WebURL:
+    Value: !Sub 
+      - http://${PublicAddress}
+      - PublicAddress: !GetAtt WebServerHost.PublicDnsName
+    Description: Project 002 Website URL
