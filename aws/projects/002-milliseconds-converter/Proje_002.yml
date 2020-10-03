@@ -139,8 +139,9 @@ Resources:
     
   
 Outputs:
-  WebURL:
-    Value: !Sub 
-      - http://${PublicAddress}
-      - PublicAddress: !GetAtt WebServerHost.PublicDnsName
-    Description: Project 002 Website URL
+  URL:
+    Description: The URL of the website
+    Value: !Join 
+      - ''
+      - - 'http://'
+        - !GetAtt myApplicationLoadBalancer.DNSName
