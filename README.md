@@ -46,7 +46,7 @@ The workshop repository contains materials related to the IT trainings like proj
     - [Wordpress ve RDS (LAMP Stack) Lab]()
 
 
-- [Teamwork Agendas Workshop](./Teamwork Agendas/README.md)
+- [Teamwork Agendas Workshop](./Teamwork_Agendas/README.md)
 
 ## Rules & Policy
 
