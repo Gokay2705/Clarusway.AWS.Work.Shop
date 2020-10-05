@@ -13,6 +13,7 @@ The workshop repository contains materials related to the IT trainings like proj
     - [AWS Workshop Projects](./Aws/projects/README.md)
 
     - [AWS Session Class-notes](./Aws/class-notes/README.md)
+  
 
 - [DevOps Workshop](./devops/README.md)
 
@@ -44,6 +45,8 @@ The workshop repository contains materials related to the IT trainings like proj
   
     - [Wordpress ve RDS (LAMP Stack) Lab]()
 
+
+- [Teamwork Agendas Workshop](./Teamwork Agendas/README.md)
 
 ## Rules & Policy
 
