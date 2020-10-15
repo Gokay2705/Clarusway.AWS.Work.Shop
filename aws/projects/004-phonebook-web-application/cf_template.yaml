@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: |
   Cloudformation template for phonebook-web-application. 
   This app runs on application load balancer. 
-  In addition, it is observed by Autoscaling Group and RDS.
+  In addition, it is observed by Autoscaling Group and RDS. 
   
 Resources:
   ALBSecurityGroup:
