@@ -1,0 +1,163 @@
+
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install python3-pip
+pip3 -V
+
+eb --version
+EB CLI 3.19.0 (Python 3.8.5)
+
+export PATH=~/.local/bin:$PATH
+
+pip3 install awsebcli
+
+uname -a 
+	Linux DESKTOP-8N3Q76F 4.4.0-19041-Microsoft #488-Microsoft Mon Sep 01 13:43:00 PST 2020 x86_64 x86_64 x86_64 GNU/Linux
+	
+cat /etc/lsb-release
+	DISTRIB_ID=Ubuntu
+	DISTRIB_RELEASE=20.04
+	DISTRIB_CODENAME=focal
+	DISTRIB_DESCRIPTION="Ubuntu 20.04.1 LTS"
+
+eb init #application olusturur
+	1) us-east-1 : US East (N. Virginia)
+	Enter Application Name
+		(default is "php-v1"):
+	It appears you are using PHP. Is this correct?
+		(Y/n): y
+	Select a platform branch.
+		1) PHP 7.4 running on 64bit Amazon Linux 2
+	Do you want to set up SSH for your instances?
+		(Y/n): y
+	Select a keypair.
+		1) aws_key
+		
+eb create #envirement olusturur
+	Enter Environment Name
+	(default is php-v1-dev):
+	Enter DNS CNAME prefix
+	(default is php-v1-dev222222):
+	2 application
+	Would you like to enable Spot Fleet requests for this environment? (y/N): n
+	Creating application version archive "app-201015_204817".
+Uploading php-v1/app-201015_204817.zip to S3. This may take a while.
+Upload Complete.
+Environment details for: php-v1-dev
+  Application name: php-v1
+  Region: us-east-1
+  Deployed Version: app-201015_204817
+  Environment ID: e-cv3bsesfmc
+  Platform: arn:aws:elasticbeanstalk:us-east-1::platform/PHP 7.4 running on 64bit Amazon Linux 2/3.1.2
+  Tier: WebServer-Standard-1.0
+  CNAME: php-v1-dev222222.us-east-1.elasticbeanstalk.com
+  Updated: 2020-10-15 18:48:23.571000+00:00
+	Printing Status:
+	2020-10-15 18:48:22    INFO    createEnvironment is starting.
+	2020-10-15 18:48:23    INFO    Using elasticbeanstalk-us-east-1-368952199929 as Amazon S3 storage bucket for environment data.
+	2020-10-15 18:48:51    INFO    Created target group named: arn:aws:elasticloadbalancing:us-east-1:368952199929:targetgroup/awseb-AWSEB-BNBBGLM7QORB/fe764fe8f020bbc8
+	2020-10-15 18:48:51    INFO    Created security group named: sg-01971a14b8a02befa
+	2020-10-15 18:49:22    INFO    Created security group named: awseb-e-cv3bsesfmc-stack-AWSEBSecurityGroup-MCANU7C5LEV3
+	2020-10-15 18:49:22    INFO    Created Auto Scaling launch configuration named: awseb-e-cv3bsesfmc-stack-AWSEBAutoScalingLaunchConfiguration-KK69740BLE29
+	2020-10-15 18:50:24    INFO    Created Auto Scaling group named: awseb-e-cv3bsesfmc-stack-AWSEBAutoScalingGroup-IBF3OMW7TZIY
+	2020-10-15 18:50:24    INFO    Waiting for EC2 instances to launch. This may take a few minutes.
+	2020-10-15 18:50:24    INFO    Created Auto Scaling group policy named: arn:aws:autoscaling:us-east-1:368952199929:scalingPolicy:a07fc77d-dbb5-4d5c-93d3-64ed528b7bea:autoScalingGroupName/awseb-e-cv3bsesfmc-stack-AWSEBAutoScalingGroup-IBF3OMW7TZIY:policyName/awseb-e-cv3bsesfmc-stack-AWSEBAutoScalingScaleDownPolicy-E3MJ78V8Q12Y   
+	2020-10-15 18:50:24    INFO    Created Auto Scaling group policy named: arn:aws:autoscaling:us-east-1:368952199929:scalingPolicy:b7a506ef-5a47-4873-a003-4fbe75bfceae:autoScalingGroupName/awseb-e-cv3bsesfmc-stack-AWSEBAutoScalingGroup-IBF3OMW7TZIY:policyName/awseb-e-cv3bsesfmc-stack-AWSEBAutoScalingScaleUpPolicy-LIMH43B9UM58     
+	2020-10-15 18:50:24    INFO    Created CloudWatch alarm named: awseb-e-cv3bsesfmc-stack-AWSEBCloudwatchAlarmLow-1VC709Z9YSWRO
+	2020-10-15 18:50:24    INFO    Created CloudWatch alarm named: awseb-e-cv3bsesfmc-stack-AWSEBCloudwatchAlarmHigh-14S285OTPY2EZ
+	2020-10-15 18:50:55    INFO    Created load balancer named: arn:aws:elasticloadbalancing:us-east-1:368952199929:loadbalancer/app/awseb-AWSEB-WV199NP3YCVW/2abfc57ee1b8323d
+	2020-10-15 18:50:58    INFO    Created Load Balancer listener named: arn:aws:elasticloadbalancing:us-east-1:368952199929:listener/app/awseb-AWSEB-WV199NP3YCVW/2abfc57ee1b8323d/5b1fd16b45aa2a43
+	2020-10-15 18:51:16    INFO    Instance deployment: You didn't include a 'composer.json' file in your source bundle. The deployment didn't install Composer dependencies.
+	2020-10-15 18:51:19    INFO    Instance deployment completed successfully.
+	2020-10-15 18:51:36    INFO    Application available at php-v1-dev222222.us-east-1.elasticbeanstalk.com.
+	2020-10-15 18:51:36    INFO    Successfully launched environment: php-v1-dev
+
+eb open # application acar
+
+eb config # temlate.yml
+	GNU nano 4.8 /mnt/c/Users/Fixzone/Downloads/Yeni klasör/php-v1/.elasticbeanstalk/php-v1-dev.env.yml Modified
+	  aws:elasticbeanstalk:environment:process:default:
+		DeregistrationDelay: '20'
+		HealthCheckInterval: '15'
+		HealthCheckPath: /
+		HealthCheckTimeout: '5'
+		HealthyThresholdCount: '3'
+		MatcherHTTPCode: null
+		Port: '80'
+		Protocol: HTTP
+		StickinessEnabled: 'false'
+		StickinessLBCookieDuration: '86400'
+		StickinessType: lb_cookie
+		UnhealthyThresholdCount: '5'
+	  aws:elasticbeanstalk:environment:proxy:
+		ProxyServer: nginx
+	  aws:elasticbeanstalk:healthreporting:system:
+		ConfigDocument: '{"Version":1,"CloudWatchMetrics":{"Instance":{"CPUIrq":null,"LoadAverage5min":null,"ApplicationRequests5xx":null,"ApplicationRequests4xx":null,>    EnhancedHealthAuthEnabled: 'false'
+		HealthCheckSuccessThreshold: Ok
+		SystemType: enhanced
+	  aws:elasticbeanstalk:hostmanager:
+		LogPublicationControl: 'false'
+	  aws:elasticbeanstalk:managedactions:
+		ManagedActionsEnabled: 'false'
+		PreferredStartTime: null
+		ServiceRoleForManagedUpdates: aws-elasticbeanstalk-service-role
+	  aws:elasticbeanstalk:managedactions:platformupdate:
+		InstanceRefreshEnabled: 'false'
+		UpdateLevel: null
+	  aws:elasticbeanstalk:monitoring:
+		Automatically Terminate Unhealthy Instances: 'true'
+	  aws:elasticbeanstalk:sns:topics:
+		Notification Endpoint: null
+		Notification Protocol: email
+		Notification Topic ARN: null
+		Notification Topic Name: null
+	  aws:elasticbeanstalk:trafficsplitting:
+		EvaluationTime: null
+		NewVersionPercent: null
+	  aws:elasticbeanstalk:xray:
+		XRayEnabled: 'false'
+
+eb terminate
+	To confirm, type the environment name: php-v1-dev
+
+aws elasticbeanstalk delete-application --application-name php-v1
+	
+##Part-2
+
+aim gelip role seciyoruz.
+	create role
+	elasticbeanstalk
+	Elastic Beanstalk - Customizable
+	Role name:aws-elastic-beanstalk-service-role
+
+eb init
+	Select a default region
+	1) us-east-1 : US East (N. Virginia)
+	Select an application to use 
+	1) php-v1
+	2) [ Create new Application ]
+	(default is 2): 2
+	It appears you are using Python. Is this correct?
+	(Y/n): y
+	(default is 1): 2
+	Do you want to set up SSH for your instances?
+	(Y/n): y
+	Select a keypair.
+	1) aws_key
+	2) n.viginia.key
+	3) [ Create new KeyPair ]
+	(default is 2): 1
+
+eb create --vpc.elbpublic --database.instance db.t2.micro --database.engine mysql --elb-type application --service-role aws-elastic-beanstalk-service-role
+	Enter Environment Name
+	(default is beanstalk-dev):
+	Enter DNS CNAME prefix
+	(default is beanstalk-dev22):
+
+	Would you like to enable Spot Fleet requests for this environment? (y/N): n
+	Enter an RDS DB username (default is "ebroot"):
+	Enter an RDS DB master password:
+
+aws elasticbeanstalk delete-application --application-name beanstalk-dev
+
+data base siliince s3 bucket silinecek ve rds icindeki snapshot silinecek.
