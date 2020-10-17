@@ -55,7 +55,7 @@ Resources:
       LaunchTemplateData:
         ImageId: ami-0947d2ba12ee1ff75
         InstanceType: t2.micro
-        KeyName: ya_lin
+        KeyName: aws_key
         SecurityGroupIds: 
           - !GetAtt WebserverSecurityGroup.GroupId
         TagSpecifications: 
