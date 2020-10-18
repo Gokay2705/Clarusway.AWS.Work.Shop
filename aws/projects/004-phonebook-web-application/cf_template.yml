@@ -81,7 +81,7 @@ Resources:
               cd ..
               wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/aws/projects/004-phonebook-web-application/phonebook-app.py
               sudo python3 phonebook-app.py
-              echo "${RDSinstance.Endpoint.Address}" >> dbserver.endpoint
+              echo "${RDSinstance.Endpoint.Address}" >> /home/ec2-user/dbserver.endpoint
 
   ALBTargetGroup:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
@@ -95,7 +95,6 @@ Resources:
       TargetType: instance
       VpcId: !GetAtt WebserverSecurityGroup.VpcId
 
-  aws ec2 describe-subnets --query Subnets[*].SubnetId
 
   ApplicationLoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
@@ -103,17 +102,11 @@ Resources:
       SecurityGroups: 
         - !GetAtt ALBsecurityGroup.GroupId 
       Subnets: 
-        - subnet-088f699636f66ce56
-        - subnet-044a56212a678b93e
         - subnet-022398b20bbfff3e7
         - subnet-079e0d84b2699adf7
         - subnet-024a531a27b6ef692
         - subnet-033f92d4eb4e95eee
-        - subnet-0bfa35bc96943a1f2
         - subnet-00aa2560bbd895a67
-        - subnet-07fed2d0561ad226e
-        - subnet-0e3eeb67b43f396e7
-        - subnet-0e475be3445f0eefc
         - subnet-001588161e20b80fc
       Type: application 
      
