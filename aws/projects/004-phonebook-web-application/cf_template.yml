@@ -6,8 +6,6 @@ Description: |
   Compute Cloud (EC2) Instances and Relational Database Service(RDS)
   using AWS Cloudformation Service.
 
-
-  
 Resources:
   ALBsecurityGroup:
     Type: "AWS::EC2::SecurityGroup"
