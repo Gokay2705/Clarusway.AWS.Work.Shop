@@ -1,0 +1,23 @@
+# Installing Docker on Amazon Linux 2 AWS EC2 Instance
+
+docker ps -a					#tum calisan konteynerlari gormek icin kullaniriz.
+
+docker stop "app name"			# app stop eder.
+
+docker rm "app name" 			# app docker icinden siler.
+
+curl "IP"						# ngnix calisma sayfasini gosterir.
+
+docker inspect "app name"		# burdan IP adresini gorebiliriz.
+
+docker run -d ngnix 			# ngnix app calistitiriz.
+
+docker images					# yuklu app listesini verir.
+
+docker run -d -p 80:80 ngnix	# ilk 80 dis dunya ikinci 80 konteyner, boylece konteyner dis dunyaya acilir.
+
+docker run -d -p 80:80 --name myweb ngnix 				# --name isim vermemizi saglar.
+
+docker exec -it myweb sh		# myweb icine girer.
+
+docker run -d -p 90:80 it -- name myngnix ngnix bash	# benim 80 potumu 90 portunda yayinla.
