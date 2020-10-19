@@ -21,3 +21,18 @@ docker run -d -p 80:80 --name myweb ngnix 				# --name isim vermemizi saglar.
 docker exec -it myweb sh		# myweb icine girer.
 
 docker run -d -p 90:80 it -- name myngnix ngnix bash	# benim 80 potumu 90 portunda yayinla.
+
+- sudo amazon-linux-extras install docker **linux ya da ec2'ye docker yükler
+- sudo service docker start **docker servisini başlatır
+- docker version **yüklenen docker verisyonunu gösterir
+- docker run -d nginx **nginx imajını konteynere yüklüyor
+- docker ps **açık konteynerlerin durumunu gösteriyor
+- docker ps -a **açık/kapalı konteynerleri gösteriyor
+- docker run -d -p 80:80 nginx **browserdan ulaşabilmek için imajımızı expose ediyoruz
+- docker inspect containet_name **containerımızın tüm detaylarını gösteriyor
+- docker stop container adı **containeri stop ediyor
+- docker rm container adı ** containeri siliyor (ID'nin tamamı ya da bir iki harfi yeter.hi
+- docker pull --name myweb clarusways/cw_web_flask1 **CW'nin oluşturduğu image i indiriyoruz
+- docker run -d -p 80:5000 --name myweb clarusways/cw_web_flask1:latest **CW'nin imajını çalıştıyıoruz
+- docker exec -it myweb sh ** myweb containerinin için girdik, bu container'dan "exit" komutu ile çıkarız
+- docker run -d -p 90:80 -it --name mynginx nginx bash **yeni container açıp direkt içine giriyor
