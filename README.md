@@ -8,45 +8,45 @@ The workshop repository contains materials related to the IT trainings like proj
 
 - [AWS Workshop](./Aws/README.md)
 
-    - [AWS Workshop Hands-on Trainings](./Aws/hands-on/README.md)
+    - [AWS Workshop Hands-on Trainings](./1.Aws/hands-on/README.md)
 
-    - [AWS Workshop Projects](./Aws/projects/README.md)
+    - [AWS Workshop Projects](./1.Aws/projects/README.md)
 
-    - [AWS Session Class-notes](./Aws/class-notes/README.md)
+    - [AWS Session Class-notes](./1.Aws/class-notes/README.md)
   
 
-- [DevOps Workshop](./devops/README.md)
+- [DevOps Workshop](./4.devops/README.md)
 
-    - [DevOps Workshop Hands-on Trainings](./Devops/hands-on/README.md)
+    - [DevOps Workshop Hands-on Trainings](./4.Devops/hands-on/README.md)
 
-    - [DevOps Workshop Projects](./Devops/projects/README.md)
+    - [DevOps Workshop Projects](./4.Devops/projects/README.md)
 
-    - [DevOps Session Class-notes](./Devops/class-notes/README.md)
+    - [DevOps Session Class-notes](./4.Devops/class-notes/README.md)
 
-- [Linux Workshop](./Linux/README.md)
+- [Linux Workshop](./2.Linux/README.md)
 
-    - [Linux Workshop Hands-on Trainings](./Linux/hands-on/README.md)
+    - [Linux Workshop Hands-on Trainings](./2.Linux/hands-on/README.md)
 
-    - [Linux Workshop Projects](./Linux/projects/README.md)
+    - [Linux Workshop Projects](./2.Linux/projects/README.md)
 
-    - [Linux Session Class-notes](./Linux/class-notes/README.md)
+    - [Linux Session Class-notes](./2.Linux/class-notes/README.md)
 
-- [Python Workshop](./Python/README.md)
+- [Python Workshop](./3.Python/README.md)
 
-    - [Python Workshop Hands-on Trainings](./Python/hands-on/README.md)
+    - [Python Workshop Hands-on Trainings](./3.Python/hands-on/README.md)
 
-    - [Python Workshop Projects](./Python//projects/README.md)
+    - [Python Workshop Projects](./3.Python//projects/README.md)
 
-    - [Python Workshop Coding Challenges](./Python//coding-challenges/README.md)
+    - [Python Workshop Coding Challenges](./3.Python//coding-challenges/README.md)
 
-    - [Python Session Class-notes](./Python//class-notes/README.md)
+    - [Python Session Class-notes](./3.Python//class-notes/README.md)
 
-- [Lab Workshop](./Lab/README.md)
+- [Lab Workshop](./21.Lab/README.md)
   
     - [Wordpress ve RDS (LAMP Stack) Lab]()
 
 
-- [Teamwork Agendas Workshop](./Teamwork_Agendas/README.md)
+- [Teamwork Agendas Workshop](./20.Teamwork_Agendas/README.md)
 
 ## Rules & Policy
 
