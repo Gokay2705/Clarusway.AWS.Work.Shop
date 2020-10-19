@@ -1,0 +1,72 @@
+27.09.2020/Pazar [Evren]
+
+# DynamoDB
+
+	NoSQl databases
+	Flexible tables
+	Fully managed
+		Don't have join function
+		Don't need pre-determined schema
+		
+	
+	Table 		: collection of databases
+	Attributes	: specific feature of the items/ tablo icindeki itemlar.
+	Primary Key	: There are two kind of primary key;
+		Partition key
+		Partition key + Sort key
+	
+# Amozon Redshift
+
+	Fully managed, 
+	Cloud-based,
+	Petabyte-scale data warehouse.
+	Used for data analyzing.
+	Support Snapshot.
+	Support replica.
+
+# AWS Elasticache
+
+	In-Memory Cache servis of AWS
+	Temporary and fast storage component
+	It's not free to use.
+	
+# CLI on WLS 
+
+aws s3 ls
+aws iam list-users
+aws --version
+aws configure
+
+	# ubuntu'ya CLI kurulumu
+	sudo apt install unzip # unzip kurulumu
+	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+	unzip awscliv2.zip
+	sudo ./aws/install
+	
+aws --version
+aws configure
+select My Security Credentials from right side from your name list.
+	Access keys (access key ID and secret access key) buradan access key gorebiliriz. yoksa create access key sekmesine tiklayip yenisini olusturabiliriz.
+
+aws configure
+	Access Key ID
+	Secret access key
+	us-east-1
+	yalm
+
+artik CLI kurulumu tamamlandi.	
+
+mustafa@DESKTOP-8N3Q76F:~$ aws ec2 describe-instances yuklu instance'lari gosterir.
+
+  * describe-instances
+  * describe-instance-types
+  * describe-instance-status
+
+# sifreler bu dosyalarin icinde tutuluyor.
+cd .aws
+ls
+config  credentials
+
+
+
+
