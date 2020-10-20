@@ -40,3 +40,34 @@ docker run -d -p 90:80 it -- name myngnix ngnix bash	# benim 80 potumu 90 portun
 docker stop $(docker ps -aq) 	# hepsini stop et
 docker rm -f $(docker ps -aq)	# hepsini siler
 docker start mynginx
+
+
+systemctl status docker	# docker durumunu baktik
+docker run -it ubuntu
+cat /etc/os-release
+ps
+echo $0 				# shell ne onu gorururuz.
+apt-get update
+apt-get upgrade
+cd						# home geceiyoruz.
+touch myfile.txt		
+ls
+apt-get install vim -y	# vim yukledik.
+vim myfile.txt 			# "Hello from the Ubuntu Container"
+exit 					# ec2 icine geri donduk.
+
+docker ps -a			# docker icine bakkiyoruz.
+docker run -i -t --name clarus ubuntu	# clarus isimli baska bir ubuntu calistiriyoruz. -it oldugundan icine girecek.
+ls
+
+docker start 61b		# Container ID ilk 3 rakamini yazdik ve calistirdik.
+docker stop 61b
+docker ps -a
+docker attach clarus	# "exet" ve "attach" kontaynra baglanma metodlari. exec komutuyla cikinca konteyner calismaya devam eder, attach da ise stop eder.
+exit					# ctrl+p+q cikinca konteyner calisir exit yazinca stop eder.
+docker ps -a
+
+docker start clarus
+docker inspect clarus | less 	# q cikar menuden.
+docker stop clarus
+docker rm clarus
