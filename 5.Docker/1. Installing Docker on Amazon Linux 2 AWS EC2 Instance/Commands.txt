@@ -36,3 +36,7 @@ docker run -d -p 90:80 it -- name myngnix ngnix bash	# benim 80 potumu 90 portun
 - docker run -d -p 80:5000 --name myweb clarusways/cw_web_flask1:latest **CW'nin imajını çalıştıyıoruz
 - docker exec -it myweb sh ** myweb containerinin için girdik, bu container'dan "exit" komutu ile çıkarız
 - docker run -d -p 90:80 -it --name mynginx nginx bash **yeni container açıp direkt içine giriyor
+
+docker stop $(docker ps -aq) 	# hepsini stop et
+docker rm -f $(docker ps -aq)	# hepsini siler
+docker start mynginx
