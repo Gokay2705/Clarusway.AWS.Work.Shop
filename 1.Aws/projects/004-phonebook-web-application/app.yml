@@ -163,7 +163,45 @@ Resources:
       LoadBalancerArn: !Ref ApplicationLoadBalancer #required
       Port: 80 #required
       Protocol: HTTP #required
-Outputs:
+  WebServerASG:
+    Type: "AWS::AutoScaling::AutoScalingGroup"
+    Properties:
+      AvailabilityZones:
+        !GetAZs ""
+      DesiredCapacity: 2
+      HealthCheckGracePeriod: 300
+      HealthCheckType: ELB
+      LaunchTemplate: 
+        LuanchTemplateId: !Ref WebServerLT
+        Version: !GetAtt WebServerLT.LatestVersionNumber
+      MaxSize: 3 #required
+      MinSize: 1 #required
+      TargetGroupARNs:
+        - !Ref WebServerTG
+MyDBSecurityGroup:
+  Type: "AWS::RDS::DBSecurityGroup"
+  Properties:
+    GroupDescription: Front-end access #required
+    DBSecurityGroupIngress:
+      - CIDRIP: 0.0.0.0/0
+        EC2SecurityGroupOwnerId: !GetAtt WebServerSecurityGroup.GroupId
+MyDBServer:
+  Type: "AWS::RDS::DBInstance"
+  Properties:
+    AllocatedStorage: 20
+    AllowMajorVersionUpgrade: False
+    AutoMinorVersionUpgrade: True
+    BackupRetentionPeriod: 0
+    DBInstanceIdentifier: phonebook-app-db
+    DBName: phonebook
+    Engine: MySQL
+    DBInstanceClass: db.t2.micro
+    EngineVersion: 8.0.19
+    MasterUserPassword: 12345678
+    MasterUsername: admin
+    MultiAZ: False
+    Port: 3306
+    PubliclyAccessible: True
   
 Outputs:
                 
