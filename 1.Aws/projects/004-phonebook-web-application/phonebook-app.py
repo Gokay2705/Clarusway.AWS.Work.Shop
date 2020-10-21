@@ -13,7 +13,7 @@ app.config['MYSQL_DATABASE_USER'] = 'admin'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'clarusway-1'
 app.config['MYSQL_DATABASE_DB'] = 'phonebook'
 app.config['MYSQL_DATABASE_PORT'] = 3306
-db_endpoint.close()
+db_endpoint.close() 
 mysql = MySQL()
 mysql.init_app(app)
 connection = mysql.connect()
