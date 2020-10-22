@@ -56,7 +56,7 @@ Resources:
                 pip3 install flask
                 pip3 install flask_mysql
                 echo "${MyDBURI}" > /home/ec2-user/dbserver.endpoint
-                TOKEN="a1fc2a4ea5510c85968a743a50d58eebd34c396a"
+                TOKEN="94eddca57871d6cbcb24babb5e0ff31f30226804"
                 FOLDER="https://$TOKEN@raw.githubusercontent.com/serdarcw/004-Phonebook-web-app-EU/master/"
                 curl -s --create-dirs -o "/home/ec2-user/templates/index.html" -L "$FOLDER"templates/index.html
                 curl -s --create-dirs -o "/home/ec2-user/templates/add-update.html" -L "$FOLDER"templates/add-update.html
@@ -93,7 +93,7 @@ Resources:
     Properties:
       DefaultActions: #required
         - TargetGroupArn: !Ref WebServerTG
-          type: forward
+          Type: forward
       LoadBalancerArn: !Ref ApplicationLoadBalancer #required
       Port: 80 #required
       Protocol: HTTP #required
@@ -118,15 +118,16 @@ Resources:
       GroupDescription: Front-end access
       DBSecurityGroupIngress:
         - CIDRIP: 0.0.0.0/0
-          EC2SecurityGroupId: !GetAtt WebServerSecurityGroup.GroupId
+        - EC2SecurityGroupId: !GetAtt WebServerSecurityGroup.GroupId
   MyDatabaseServer:
     Type: AWS::RDS::DBInstance
+    DeletionPolicy: Delete
     Properties:
       AllocatedStorage: 20
       AllowMajorVersionUpgrade: false 
       AutoMinorVersionUpgrade: true
       BackupRetentionPeriod: 0
-      DBInstanceIdentifier: phonebook-app-db
+      DBInstanceIdentifier: phonebook-app-db2
       DBName: phonebook
       DBSecurityGroups: 
         - !Ref MyDBSecurityGroup

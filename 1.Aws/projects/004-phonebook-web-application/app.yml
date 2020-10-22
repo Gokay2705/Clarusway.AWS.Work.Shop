@@ -38,7 +38,7 @@ Resources:
       LaunchTemplateData: 
         ImageId: ami-0947d2ba12ee1ff75
         InstanceType: t2.micro
-        KeyName: serdar
+        KeyName: aws_key
         SecurityGroupIds: 
           - !GetAtt WebServerSecurityGroup.GroupId
         TagSpecifications: 
@@ -56,8 +56,8 @@ Resources:
                 pip3 install flask
                 pip3 install flask_mysql
                 echo "${MyDBURI}" > /home/ec2-user/dbserver.endpoint
-                TOKEN="a1fc2a4ea5510c85968a743a50d58eebd34c396a"
-                FOLDER="https://$TOKEN@raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/tree/master/"
+                TOKEN="20f53ec838cc9e8af5f4e75d93d7a514a78c1e76"
+                FOLDER="https://$TOKEN@raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/tree/master/1.Aws/projects/004-phonebook-web-application"
                 curl -s --create-dirs -o "/home/ec2-user/templates/index.html" -L "$FOLDER"templates/index.html
                 curl -s --create-dirs -o "/home/ec2-user/templates/add-update.html" -L "$FOLDER"templates/add-update.html
                 curl -s --create-dirs -o "/home/ec2-user/templates/delete.html" -L "$FOLDER"templates/delete.html
@@ -95,7 +95,7 @@ Resources:
     Properties:
       DefaultActions: #required
         - TargetGroupArn: !Ref WebServerTG
-          type: forward
+          Type: forward
       LoadBalancerArn: !Ref ApplicationLoadBalancer #required
       Port: 80 #required
       Protocol: HTTP #required
@@ -120,8 +120,7 @@ Resources:
       GroupDescription: Front-end access
       DBSecurityGroupIngress:
         - CIDRIP: 0.0.0.0/0
-          DBSecurity
-          EC2SecurityGroupId: !GetAtt WebServerSecurityGroup.GroupId
+        - EC2SecurityGroupId: !GetAtt WebServerSecurityGroup.GroupId
   MyDatabaseServer:
     Type: AWS::RDS::DBInstance
     DeletionPolicy: Delete
