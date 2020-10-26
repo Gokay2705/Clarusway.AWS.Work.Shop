@@ -1,0 +1,94 @@
+# Installing Docker on Amazon Linux 2 AWS EC2 Instance
+
+docker ps -a					#tum calisan konteynerlari gormek icin kullaniriz.
+
+docker stop "app name"			# app stop eder.
+
+docker rm "app name" 			# app docker icinden siler.
+
+curl "IP"						# ngnix calisma sayfasini gosterir.
+
+docker inspect "app name"		# burdan IP adresini gorebiliriz.
+
+docker run -d ngnix 			# ngnix app calistitiriz.
+
+docker images					# yuklu app listesini verir.
+
+docker run -d -p 80:80 ngnix	# ilk 80 dis dunya ikinci 80 konteyner, boylece konteyner dis dunyaya acilir.
+
+docker run -d -p 80:80 --name myweb ngnix 				# --name isim vermemizi saglar.
+
+docker exec -it myweb sh		# myweb icine girer.
+
+docker run -d -p 90:80 it -- name myngnix ngnix bash	# benim 80 potumu 90 portunda yayinla.
+
+- sudo amazon-linux-extras install docker **linux ya da ec2'ye docker yükler
+- sudo service docker start **docker servisini başlatır
+- docker version **yüklenen docker verisyonunu gösterir
+- docker run -d nginx **nginx imajını konteynere yüklüyor
+- docker ps **açık konteynerlerin durumunu gösteriyor
+- docker ps -a **açık/kapalı konteynerleri gösteriyor
+- docker run -d -p 80:80 nginx **browserdan ulaşabilmek için imajımızı expose ediyoruz
+- docker inspect containet_name **containerımızın tüm detaylarını gösteriyor
+- docker stop container adı **containeri stop ediyor
+- docker rm container adı ** containeri siliyor (ID'nin tamamı ya da bir iki harfi yeter.hi
+- docker pull --name myweb clarusways/cw_web_flask1 **CW'nin oluşturduğu image i indiriyoruz
+- docker run -d -p 80:5000 --name myweb clarusways/cw_web_flask1:latest **CW'nin imajını çalıştıyıoruz
+- docker exec -it myweb sh ** myweb containerinin için girdik, bu container'dan "exit" komutu ile çıkarız
+- docker run -d -p 90:80 -it --name mynginx nginx bash **yeni container açıp direkt içine giriyor
+
+docker stop $(docker ps -aq) 	# hepsini stop et
+docker rm -f $(docker ps -aq)	# hepsini siler
+docker start mynginx
+
+
+systemctl status docker	# docker durumunu baktik
+docker run -it ubuntu
+cat /etc/os-release
+ps
+echo $0 				# shell ne onu gorururuz.
+apt-get update
+apt-get upgrade
+cd						# home geceiyoruz.
+touch myfile.txt		
+ls
+apt-get install vim -y	# vim yukledik.
+vim myfile.txt 			# "Hello from the Ubuntu Container"
+exit 					# ec2 icine geri donduk.
+
+docker ps -a			# docker icine bakkiyoruz.
+docker run -i -t --name clarus ubuntu	# clarus isimli baska bir ubuntu calistiriyoruz. -it oldugundan icine girecek.
+ls
+
+docker start 61b		# Container ID ilk 3 rakamini yazdik ve calistirdik.
+docker stop 61b
+docker ps -a
+docker attach clarus	# "exet" ve "attach" kontaynra baglanma metodlari. exec komutuyla cikinca konteyner calismaya devam eder, attach da ise stop eder.
+exit					# ctrl+p+q cikinca konteyner calisir exit yazinca stop eder.
+docker ps -a
+
+docker start clarus
+docker inspect clarus | less 	# q cikar menuden.
+docker stop clarus
+docker rm clarus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

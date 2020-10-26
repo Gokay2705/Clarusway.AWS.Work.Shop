@@ -58,6 +58,7 @@ sudo systemctl enable docker
 
 ```bash
 sudo systemctl status docker
+sudo systemctl status docker
 ```
 
 - Add the `ec2-user` to the `docker` group to run docker commands without using `sudo`.
@@ -158,6 +159,7 @@ Server:
   127.0.0.0/8
  Live Restore Enabled: false
 ```
+docker run -d nginx # program calistirma,  docker son surumunu yukler.
 
 # install docker-compose
 ```bash
