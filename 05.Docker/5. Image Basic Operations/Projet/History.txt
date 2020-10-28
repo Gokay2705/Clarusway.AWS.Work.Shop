@@ -1,0 +1,13 @@
+
+  535  mkdir roman
+  536  cd
+  537  cd roman/
+  538  sudo vim Dockerfile
+  540  echo "flask" > requirements.txt
+  542  docker build -t roma .t
+  545  docker images
+  549  docker run -d -p 80:80 --name web_roma roma:latest
+	   docker exec -it web_roma sh
+	   ls
+	   
+  
