@@ -12,14 +12,14 @@ Parameters:
     Type: String
     AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
 Resources:
-  KittenBucket:
+  KittensBucket:
      Type: "AWS::S3::Bucket"
      Properties:
         AccessControl: PublicRead
         BucketName: !Ref KittensDomainName
         WebsiteConfiguration:
           IndexDocument: index.html
-  KittenBucketPolicy:
+  KittensBucketPolicy:
     Type: "AWS::S3::BucketPolicy"
     Properties:
       Bucket: !Ref KittenBucket #required
@@ -31,19 +31,22 @@ Resources:
           Action: s3:GetObject
           Resource: !Join ['',['arn:aws:s3:::', !Ref 'KittenBucket', /*]]
           # !Sub "${KittenBucket.Arn}/*"
-  KittenCertificate:
+  KittensCertificate:
     Type: "AWS::CertificateManager::Certificate"
     Properties:
-      CertificateAuthorityArn: String
-      CertificateTransparencyLoggingPreference: String
-      DomainName: String #required
+      CertificateTransparencyLoggingPreference: ENABLE
+      DomainName: !Ref KittensDomainName #required
       DomainValidationOptions:
-        - DomainValidationOption
-      SubjectAlternativeNames:
-        - String
-      Tags:
-        - Tag
-      ValidationMethod: String
+        - DomainName: !Ref KittensDomainName
+          HostedZoneId: !Ref DomainName
+      ValidationMethod: DNS
+  KittensDNSName:
+    Type: "AWS::Route53::RecordSetGroup"
+    Properties:
+      HostedZoneId: !Ref DomainName
+      RecordSets:
+        - Name
+  
   
       
   
