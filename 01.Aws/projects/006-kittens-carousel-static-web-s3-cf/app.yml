@@ -45,7 +45,11 @@ Resources:
     Properties:
       HostedZoneId: !Ref DomainName
       RecordSets:
-        - Name
+        - Name: !Ref KittensDomainName
+          Type: A
+          AliasTarget:
+            HostedZoneId: Z2FDTNDATAQYW2
+            DNSName: 'put the cloudfront DNS name'
   
   
       
