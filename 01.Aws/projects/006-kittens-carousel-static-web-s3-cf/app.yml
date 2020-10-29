@@ -4,33 +4,33 @@ Description: |
   Kittens Carousel is a static website application deployed on AWS Simple Storage Service (S3), served through Cloudfront and Route 53 using AWS Cloudformation Service.
 
 Parameters:
-  DomainName:
-    Description: DNS Name of existing Amazon Route 53 hosted zone ex. clarusway.us
-    Type: AWS::Route53::HostedZone::Id
-  KittensDomainName:
-    Description: Full domain name for the App. ex. kittens.clarusway.us
-    Type: String
-    AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
+    DomainName:
+      Description: DNS Name of existing Amazon Route 53 hosted zone ex. clarusway.us
+      Type: AWS::Route53::HostedZone::Id
+    KittensDomainName:
+      Description: Full domain name for the App. ex. kittens.clarusway.us
+      Type: String
+      AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
 Resources:
   KittensBucket:
-     Type: "AWS::S3::Bucket"
-     Properties:
-        AccessControl: PublicRead
-        BucketName: !Ref KittensDomainName
-        WebsiteConfiguration:
-          IndexDocument: index.html
+    Type: AWS::S3::Bucket
+    Properties: 
+      AccessControl: PublicRead
+      BucketName: !Ref KittensDomainName
+      WebsiteConfiguration: 
+         IndexDocument: index.html
   KittensBucketPolicy:
-    Type: "AWS::S3::BucketPolicy"
+    Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref KittensBucket #required
-      PolicyDocument: #required
+      Bucket: !Ref KittensBucket
+      PolicyDocument: 
         Statement:
-        - Sid: PublicReadforStaticWebsite
-          Effect: Allow
-          Principal: *
-          Action: s3:GetObject
-          Resource: !Join ['',['arn:aws:s3:::', !Ref 'KittensBucket', /*]]
-          # !Sub "${KittenBucket.Arn}/*"
+          - Sid: PublicReadforStaticWebsite
+            Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Join ['', ['arn:aws:s3:::', !Ref 'KittensBucket', /*]]
+            # !Sub "${KittensBucket.Arn}/*"
   KittensCertificate:
     Type: "AWS::CertificateManager::Certificate"
     Properties:
@@ -41,10 +41,10 @@ Resources:
           HostedZoneId: !Ref DomainName
       ValidationMethod: DNS
   KittensDNSName:
-    Type: "AWS::Route53::RecordSetGroup"
+    Type: AWS::Route53::RecordSetGroup
     Properties:
       HostedZoneId: !Ref DomainName
-      RecordSets:
+      RecordSets: 
         - Name: !Ref KittensDomainName
           Type: A
           AliasTarget:
@@ -54,7 +54,8 @@ Resources:
     Type: "AWS::CloudFront::Distribution"
     Properties:
       DistributionConfig: #required
-        Aliases: !Ref KittensDomainName
+        Aliases: 
+        - !Ref KittensDomainName
         Comment: Cloudfront Distribution pointing to Kittens S3 bucket
         DefaultCacheBehavior: 
           AllowedMethods: 
@@ -71,11 +72,11 @@ Resources:
         Enabled: true
         HttpVersion: 'http2'
         Origins: 
-          CustomOriginConfig: 
-            OriginProtocolPolicy: http-only
-          DomainName: !Select [2, !Split ["/", !GetAtt KittensBucket.WebsiteURL]]
-            # DomainName: !GetAtt KittensBucket.DomainName
+        - DomainName: !Select [2, !Split ["/", !GetAtt KittensBucket.WebsiteURL]]
+        # DomainName: !GetAtt KittensBucket.DomainName
           Id: KittensOrigin
+          CustomOriginConfig:
+            OriginProtocolPolicy: http-only
         PriceClass: PriceClass_All
         ViewerCertificate: 
           AcmCertificateArn: !Ref KittensCertificate
