@@ -52,7 +52,8 @@ Resources:
     Type: "AWS::CloudFront::Distribution"
     Properties:
       DistributionConfig: #required
-        Aliases: !Ref KittensDomainName
+        Aliases: 
+        - !Ref KittensDomainName
         Comment: Cloudfront Distribution pointing to Kittens S3 bucket
         DefaultCacheBehavior: 
           AllowedMethods: 
@@ -69,10 +70,10 @@ Resources:
         Enabled: true
         HttpVersion: 'http2'
         Origins: 
-          CustomOriginConfig: 
-            OriginProtocolPolicy: http-only
-          DomainName: !Select [2, !Split ["/", !GetAtt KittensBucket.WebsiteURL]]
+        - DomainName: !Select [2, !Split ["/", !GetAtt KittensBucket.WebsiteURL]]
           Id: KittensOrigin
+          CustomOriginConfig:
+            OriginProtocolPolicy: http-only
         PriceClass: PriceClass_All
         ViewerCertificate: 
           AcmCertificateArn: !Ref KittensCertificate
