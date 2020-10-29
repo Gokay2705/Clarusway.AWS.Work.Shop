@@ -49,9 +49,44 @@ Resources:
           Type: A
           AliasTarget:
             HostedZoneId: Z2FDTNDATAQYW2
-            DNSName: 'put the cloudfront DNS name'
-  
-  
-      
-  
+            DNSName: !GetAtt KittensCloudfront.DomainName
+  KittensCloudfront:
+    Type: "AWS::CloudFront::Distribution"
+    Properties:
+      DistributionConfig: #required
+        Aliases: !Ref KittensDomainName
+        Comment: Cloudfront Distribution pointing to Kittens S3 bucket
+        DefaultCacheBehavior: 
+          AllowedMethods: 
+            - GET
+            - HEAD
+          Compress: true
+          ForwardedValues: 
+            Cookies: 
+              Forward: none
+            QueryString: true
+          TargetOriginId: KittensOrigin
+          ViewerProtocolPolicy: redirect-to-https
+        DefaultRootObject: index.html
+        Enabled: true
+        HttpVersion: 'http2'
+        Origins: 
+          CustomOriginConfig: 
+            OriginProtocolPolicy: http-only
+          DomainName: !Select [2, !Split ["/", !GetAtt KittensBucket.WebsiteURL]]
+            # DomainName: !GetAtt KittensBucket.DomainName
+          Id: KittensOrigin
+        PriceClass: PriceClass_All
+        ViewerCertificate: 
+          AcmCertificateArn: !Ref KittensCertificate
+          SslSupportMethod: sni-only
 Outputs:
+  BucketName: 
+    Description: S3 Bucket URL for Kittens Website
+    Value: !GetAtt KittensBucket.WebsiteURL
+  CloudfrontEndpoint:
+    Description: Endpoint for Kittens Cloudfront
+    Value: !GetAtt KittensCloudfront.DomainName
+  FullDomainName:
+    Description: Full Domain Name of my Application
+    Value: !Ref KittensDomainName
