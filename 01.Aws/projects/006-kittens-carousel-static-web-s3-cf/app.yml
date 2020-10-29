@@ -22,19 +22,19 @@ Resources:
   KittensBucketPolicy:
     Type: "AWS::S3::BucketPolicy"
     Properties:
-      Bucket: !Ref KittenBucket #required
+      Bucket: !Ref KittensBucket #required
       PolicyDocument: #required
         Statement:
         - Sid: PublicReadforStaticWebsite
           Effect: Allow
           Principal: *
           Action: s3:GetObject
-          Resource: !Join ['',['arn:aws:s3:::', !Ref 'KittenBucket', /*]]
+          Resource: !Join ['',['arn:aws:s3:::', !Ref 'KittensBucket', /*]]
           # !Sub "${KittenBucket.Arn}/*"
   KittensCertificate:
     Type: "AWS::CertificateManager::Certificate"
     Properties:
-      CertificateTransparencyLoggingPreference: ENABLE
+      CertificateTransparencyLoggingPreference: ENABLED
       DomainName: !Ref KittensDomainName #required
       DomainValidationOptions:
         - DomainName: !Ref KittensDomainName
