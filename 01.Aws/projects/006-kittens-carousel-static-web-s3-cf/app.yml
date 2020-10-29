@@ -4,26 +4,47 @@ Description: |
   Kittens Carousel is a static website application deployed on AWS Simple Storage Service (S3), served through Cloudfront and Route 53 using AWS Cloudformation Service.
 
 Parameters:
-    DomainName:
-      Description: DNS Name of existing Amazon Route 53 hosted zone ex. clarusway.us
-      Type: AWS::Route53::HostedZone::Id
-    KittensDomainName:
-      Description: Full domain name for the App. ex. kittens.clarusway.us
-      Type: String
-      AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
+  DomainName:
+    Description: DNS Name of existing Amazon Route 53 hosted zone ex. clarusway.us
+    Type: AWS::Route53::HostedZone::Id
+  KittensDomainName:
+    Description: Full domain name for the App. ex. kittens.clarusway.us
+    Type: String
+    AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
 Resources:
-   s3Bucket:
+  KittenBucket:
      Type: "AWS::S3::Bucket"
      Properties:
-       AccessControl: PublicRead
-       BucketName: !Ref KittensDomainName
-       
-       Tags:
-         - Tag
-       VersioningConfiguration:
-         VersioningConfiguration
-       WebsiteConfiguration:
-         WebsiteConfiguration
-   
+        AccessControl: PublicRead
+        BucketName: !Ref KittensDomainName
+        WebsiteConfiguration:
+          IndexDocument: index.html
+  KittenBucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref KittenBucket #required
+      PolicyDocument: #required
+        Statement:
+        - Sid: PublicReadforStaticWebsite
+          Effect: Allow
+          Principal: *
+          Action: s3:GetObject
+          Resource: !Join ['',['arn:aws:s3:::', !Ref 'KittenBucket', /*]]
+          # !Sub "${KittenBucket.Arn}/*"
+  KittenCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      CertificateAuthorityArn: String
+      CertificateTransparencyLoggingPreference: String
+      DomainName: String #required
+      DomainValidationOptions:
+        - DomainValidationOption
+      SubjectAlternativeNames:
+        - String
+      Tags:
+        - Tag
+      ValidationMethod: String
+  
+      
   
 Outputs:
