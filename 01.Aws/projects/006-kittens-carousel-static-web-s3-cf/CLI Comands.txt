@@ -1,3 +1,8 @@
  5913  aws s3 ls
- 5916  aws s3 sync . s3://kittens.sayici.co.uk
- 5917  aws s3 ls s3://kittens.sayici.co.uk
+ 5916  aws s3 sync . s3://kittens.mustafagokceaydin.com
+ 5917  aws s3 ls s3://kittens.mustafagokceaydin.com
+ 
+ 
+ - Clean S3 Bucket
+ - CloudFront Distributions disable your certificate and delete it.
+ - R53 delete recorrding of kittens
