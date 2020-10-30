@@ -71,3 +71,24 @@ docker start clarus
 docker inspect clarus | less 	# q cikar menuden.
 docker stop clarus
 docker rm clarus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

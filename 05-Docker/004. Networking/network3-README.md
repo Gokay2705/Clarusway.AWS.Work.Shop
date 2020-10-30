@@ -108,7 +108,7 @@ ping -c 4 172.17.0.3
 ping -c 4 clarus2nd
 ```
 
-- Disconnect from `clarus1st` without stopping it (CTRL + p + q).
+- Disconnect from `clarus1st` without stopping it (CTRL + p  ve ctr+q).
 
 - Stop and delete the containers
 
@@ -191,7 +191,7 @@ ping -c 4 172.17.0.2
 ping -c 4 google.com
 ```
 
-- Exit the `clarus1st` container without stopping and return to ec2-user bash shell.
+- Exit the `clarus1st` container without stopping and return to ec2-user bash shell. "ctrl + P ve ctrl + Q"
 
 - Connect to the `clarus4th` container, since it is in both network should connect all containers.
 
@@ -204,7 +204,7 @@ docker attach clarus4th
 ```bash
 ping -c 4 clarus1st
 ping -c 4 clarus2nd
-ping -c 4 172.17.0.2
+ping -c 4 172.17.0.3
 ```
 
 - Stop and remove all containers
