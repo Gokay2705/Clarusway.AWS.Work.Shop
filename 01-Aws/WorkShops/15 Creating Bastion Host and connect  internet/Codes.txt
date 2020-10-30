@@ -1,0 +1,32 @@
+eval "$(ssh-agent)"
+ssh-add ./aws_key.pem
+	Agent pid 57
+ssh-add -l
+	2048 SHA256:kyvYdO3rfYXE5ysZbTHvXawSwNkR1Pf1DNDZLk2aQKY ./aws_key.pem (RSA)
+ssh -A ec2-user@35.175.250.66
+Last login: Thu Oct  1 18:20:21 2020 from 213.55.221.78
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[ec2-user@ip-10-7-1-164 ~]$ ls
+aws_key.pem
+[ec2-user@ip-10-7-1-164 ~]$ ssh ec2-user@10.7.2.5
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+[ec2-user@ip-10-7-2-5 ~]$ ping 10.7.1.164
+PING 10.7.1.164 (10.7.1.164) 56(84) bytes of data.
+64 bytes from 10.7.1.164: icmp_seq=1 ttl=255 time=0.524 ms
+64 bytes from 10.7.1.164: icmp_seq=2 ttl=255 time=0.597 ms
+64 bytes from 10.7.1.164: icmp_seq=3 ttl=255 time=0.705 ms
+64 bytes from 10.7.1.164: icmp_seq=4 ttl=255 time=0.565 ms
+
+
+
+echo $(curl -s https://api.ipify.org) # ip adresimizi verir.
