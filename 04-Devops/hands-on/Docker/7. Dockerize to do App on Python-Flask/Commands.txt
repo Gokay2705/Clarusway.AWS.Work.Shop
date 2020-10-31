@@ -1,0 +1,42 @@
+  662  docker-compose --version
+  663  mkdir to-do-api
+  664  cd to-do-api/
+  665  from flask import Flask, jsonify, abort, request, make_response
+  666  sudo vim to-do-api.py
+  667  cat to-do-api.py 
+  668  sudo vim requirements.txt
+  669  sudo vim Dockerfile
+  670  ls
+  671  sudo vim docker-compose.yml
+  672  docker-compose up -d
+  673  docker container ls
+  674  docker image ls
+  675  docker network ls
+  676  curl http://http://3.87.248.46/todos
+  677  curl http://http://3.87.248.46/todos/3
+  678  docker-compose build
+  679  docker-compose up -d
+
+  681  docker container ls
+  682  docker ps
+  683  docker image ls
+  684  docker exec -it to-do-api_myapp_1 sh
+
+  690  docker network ls
+  691  curl http://3.87.248.46/todos
+  692  curl http://3.87.248.46/todos/3
+  693  curl -H "Content-Type: application/json" -X POST -d '{"title":"Get some REST", "description":"REST in Peace"}' http://3.87.248.46/todos
+  694  docker ps
+
+  699  docker logs to-do-api_myapp_1
+  700  docker logs -f to-do-api_myapp_1
+ 
+  701  curl -H "Content-Type: application/json" -X DELETE http://3.87.248.46/todos/1
+  702  curl http://3.87.248.46/todos
+
+  704  curl -H "Content-Type: application/json" -X DELETE http://3.87.248.46/todos/2
+  705  docker-compose down
+  706  docker image ls
+  707  docker container ls
+  708  docker network ls
+  709  
