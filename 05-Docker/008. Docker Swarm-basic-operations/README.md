@@ -55,7 +55,7 @@ ssh -i .ssh/call-training.pem ec2-user@ec2-3-133-106-98.us-east-2.compute.amazon
 - Change the hostname  of the nodes, so we can discern the roles of each nodes. For example, you can name the nodes (instances) like master, worker-1 and worker-2.
 
 ```bash
-sudo hostnamectl set-hostname <node-name-manager-or-worker>
+sudo hostnamectl set-hostname <node-name-manager-or-worker> #manager-1
 ```
 
 - Check if the docker is active or not from the list of docker info (should be inactive at first).

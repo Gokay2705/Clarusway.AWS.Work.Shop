@@ -1,0 +1,104 @@
+    ## 1. Insatnace
+	
+	sudo hostnamectl set-hostname manager-1
+	bash
+	docker info
+    docker swarm --help
+    docker swarm init
+    docker swarm init --advertise-addr 172.31.19.138
+    docker info
+    docker swarm join-token manager
+		$ docker swarm join --token SWMTKN-1-04z548dg7agswj3nc0w0beburgcia439bzr0pkygdd2y1j29j1-a94s0pl3nykyjtp6ge2wldjvo 172.31.19.138:2377
+	
+	docker swarm join-token manager
+		$ docker swarm join --token SWMTKN-1-04z548dg7agswj3nc0w0beburgcia439bzr0pkygdd2y1j29j1-a94s0pl3nykyjtp6ge2wldjvo 172.31.19.138:2377
+	
+	docker node ls
+		ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION    
+		cwr82y3ja7txj82phq4n2vo5x *   manager-1           Ready               Active              Leader              19.03.6-ce        
+		xv61cg6zg3huhd9pu4rry9utw     manager-2           Ready               Active              Reachable           19.03.6-ce        
+		44ute2c1mdctfizu7xcookq3s     manager-3           Ready               Active              Reachable           19.03.6-ce 
+	
+	docker swarm join-token worker
+		$ docker swarm join --token SWMTKN-1-04z548dg7agswj3nc0w0beburgcia439bzr0pkygdd2y1j29j1-ewbxpdtjnyurns2zd0m8jmgqn 172.31.19.138:2377
+	
+	## 2. Insatnace
+	
+	sudo hostnamectl set-hostname manager-2
+	bash
+	docker swarm join --token SWMTKN-1-04z548dg7agswj3nc0w0beburgcia439bzr0pkygdd2y1j29j1-a94s0pl3nykyjtp6ge2wldjvo 172.31.19.138:2377
+	
+	## 3. Insatnace
+	
+	sudo hostnamectl set-hostname manager-3
+	bash
+	docker swarm join --token SWMTKN-1-04z548dg7agswj3nc0w0beburgcia439bzr0pkygdd2y1j29j1-a94s0pl3nykyjtp6ge2wldjvo 172.31.19.138:2377
+	
+	## 4. Insatnace
+
+	sudo hostnamectl set-hostname worker-1
+	bash
+	docker swarm join --token SWMTKN-1-04z548dg7agswj3nc0w0beburgcia439bzr0pkygdd2y1j29j1-ewbxpdtjnyurns2zd0m8jmgqn 172.31.19.138:2377	
+	
+	
+	## 5. Insatnace
+	
+	sudo hostnamectl set-hostname worker-2
+	bash
+	docker swarm join --token SWMTKN-1-04z548dg7agswj3nc0w0beburgcia439bzr0pkygdd2y1j29j1-ewbxpdtjnyurns2zd0m8jmgqn 172.31.19.138:2377
+	
+	
+	## 1. Insatnace devam...
+	docker service create \
+	  --name=viz \
+	  --publish=8080:8080/tcp \
+	  --constraint=node.role==manager \
+	  --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
+	  dockersamples/visualizer
+	  
+	bu komutu yapistiriyoruz. Sonrasinda:
+		$ overall progress: 1 out of 1 tasks
+		  1/1: running   [==================================================>]
+		  verify: Service converged
+		  
+		cikti alicaz. Ec2 Instance-1 Public IPv4 addressini http seklinde yazip sonuna :8080 ekledigimizde bir konsol acilacak.
+	
+	docker service create --name webserver --replicas=5 -p 80:80 -d nginx
+	docker service ls
+	docker service inspect --pretty webserver
+	docker service ps webserver
+	docker service logs webserver
+	
+	## 5. Insatnace devam...
+	
+	sudo reboot -f
+	
+	## 1. Insatnace devam...
+	
+	docker service scale webserver=10 # docker sayisiin 10 cikardik.
+	docker service scale webserver=3
+	docker service rm webserver # servisi sildik
+	
+	docker service create --name glbserver --mode=global -p 80:80 nginx # default degeri replicate idi simdi global oldu.
+		[ec2-user@manager-1 ~]$ docker service ls
+		ID                  NAME                MODE                REPLICAS            IMAGE                             PORTS
+		7ekeq9usozjh        glbserver           global              5/5                 nginx:latest                      *:80->80/tcp
+		skmxk2ggwwjh        viz                 replicated          1/1                 dockersamples/visualizer:latest   *:8080->8080/tcp 
+			
+	docker service create --name replicated  --replicas=5  nginx
+	docker service ls
+	docker service rm replicated
+	docker service rm glbserve
+	
+	docker service create --name clarusweb -p 80:80 --replicas=10 clarusways/container-info:1.0
+	docker service ps clarusweb
+	http://54.235.14.168 # Public IPv4 address
+	docker service update --detach --update-delay 5s --update-parallelism 2 --image clarusways/container-info:2.0 clarusweb
+	watch docker service ps clarusweb
+	http://54.235.14.168 # Public IPv4 address
+	
+	docker service rm clarusweb
+	
+	
+	
+	
