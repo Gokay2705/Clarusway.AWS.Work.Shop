@@ -1,0 +1,46 @@
+	## Jenkins
+	
+	1  ls
+    2  clear
+    3  sudo yum update -y && sudo yum upgrade
+    4  sudo amazon-linux-extras install java-openjdk11 -y
+    5  java -version
+    6  sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
+    7  sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+    8  ls
+    9  sudo yum install jenkins -y
+   10  sudo systemctl start jenkins
+   11  sudo systemctl enable jenkins
+   12  sudo systemctl status jenkins
+   13  sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+	   $ 08164e5dea1245cbba2869cd8735ca07
+	
+	   URL http://ec2-100-26-54-253.compute-1.amazonaws.com:8080/
+		
+		
+	## Jenkins-Docker
+	
+	1  docker version
+    2  docker run   -u root   --rm   -d   -p 8080:8080   -p 50000:50000   --name jenkins   -v jenkins-data:/var/jenkins_home   -v /var/run/docker.sock:/var/run/docker.sock   jenkins/jenkins:lts
+    3  docker logs jenkins
+	
+	   $ 9f4715ffb0af410193d7b7092609ca36
+	
+	## Jenkins-War
+
+    1  sudo yum update -y
+    2  sudo amazon-linux-extras install java-openjdk11 -y
+    3  java -version
+    4  wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+    5  java -jar jenkins.war --httpPort=8080	
+	
+	   $ cfd86676c8394a21ac392781ec414c2e
+	
+	   URL http://ec2-54-175-145-196.compute-1.amazonaws.com:8080/login?from=%2F
+	   
+	## Jenkins-Docker-Compose
+
+	
+	   
+	   
+	
