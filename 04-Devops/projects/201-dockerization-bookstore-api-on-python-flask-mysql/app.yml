@@ -45,10 +45,10 @@ Resources:
           sudo chmod +x /usr/local/bin/docker-compose
           mkdir bookstore
           cd bookstore
-          wget 
-          wget 
-          wget
-          wget 
+          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/04-Devops/projects/201-dockerization-bookstore-api-on-python-flask-mysql/Dockerfile
+          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/04-Devops/projects/201-dockerization-bookstore-api-on-python-flask-mysql/docker-compose.yml
+          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/04-Devops/projects/201-dockerization-bookstore-api-on-python-flask-mysql/requirements.txt
+          wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/04-Devops/projects/201-dockerization-bookstore-api-on-python-flask-mysql/bookstore-api.py
           docker-compose up      
 
 Outputs:
@@ -56,4 +56,4 @@ Outputs:
     Value: !Sub 
       - http://${PublicAddress}
       - PublicAddress: !GetAtt WEbHost.PublicDsnName
-    Description: BookStore Web APP URL
+    Description: BookStore Web APP URL 
