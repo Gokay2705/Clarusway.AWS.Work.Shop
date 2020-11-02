@@ -2,7 +2,58 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: |
   Bookstore Web API Application aims to create a bookstore web service using Docker to give students the understanding to dockerization of an application. The application code is to be deployed as a RESTful web service with Flask using Dockerfile and Docker Compose on AWS Elastic Compute Cloud (EC2) Instance using AWS Cloudformation Service.
 Parameters:
+  KeyPairName:
+    Description: Enter your AWS KeyPair.
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDEscription: Choose exixting KeyPair.
   
 Resources:
-  
+  WebSecGrp:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: Enable HHTP server for app  #required
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+  WebHost:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: ami-0947d2ba12ee1ff75
+      InstanceType: t2.micro
+      KeyName: !Ref KeyPairName
+      SecurityGroupIds:
+        - !Ref WebSecGrp
+      Tags:
+        - Key: Name
+          Value: !Sub Web Server of ${AWS::StackName}
+      UserData: !Base64 |
+          #! bin/bash
+          yum update -y
+          amazon-linux-extras install docker
+          service docker start
+          systemctl start docker
+          systemctl enable docker 
+          gpasswrd -a $USER docker 
+          newgrp docker 
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          mkdir bookstore
+          cd bookstore
+          wget 
+          wget 
+          wget
+          wget 
+          docker-compose up      
+
 Outputs:
+  WebSiteURL:
+    Value: !Sub 
+      - http://${PublicAddress}
+      - PublicAddress: !GetAtt WEbHost.PublicDsnName
+    Description: BookStore Web APP URL
