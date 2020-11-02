@@ -34,8 +34,10 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub Web Server of ${AWS::StackName}
-      UserData: !Base64 |
-          #! bin/bash
+      UserData:
+        Fn::Base64:
+          !Sub |
+          #!/bin/bash
           yum update -y
           amazon-linux-extras install docker
           service docker start
@@ -45,6 +47,7 @@ Resources:
           newgrp docker 
           sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
+          cd /home/ec2-user
           mkdir bookstore
           cd bookstore
           wget https://raw.githubusercontent.com/Gokay2705/Clarusway.AWS.Work.Shop/master/04-Devops/projects/201-dockerization-bookstore-api-on-python-flask-mysql/Dockerfile
