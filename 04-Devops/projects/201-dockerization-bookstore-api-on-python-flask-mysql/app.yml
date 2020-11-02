@@ -59,6 +59,6 @@ Resources:
 Outputs:
   WebSiteURL:
     Value: !Sub 
-      - http://${PublicAddress}
+      - ${PublicAddress}
       - PublicAddress: !GetAtt WebHost.PublicDnsName
     Description: BookStore Web APP URL 
