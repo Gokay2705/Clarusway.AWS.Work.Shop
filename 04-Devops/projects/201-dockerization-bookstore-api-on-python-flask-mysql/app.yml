@@ -1,11 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
+
 Description: |
   Bookstore Web API Application aims to create a bookstore web service using Docker to give students the understanding to dockerization of an application. The application code is to be deployed as a RESTful web service with Flask using Dockerfile and Docker Compose on AWS Elastic Compute Cloud (EC2) Instance using AWS Cloudformation Service.
+
 Parameters:
   KeyPairName:
     Description: Enter your AWS KeyPair.
     Type: AWS::EC2::KeyPair::KeyName
-    ConstraintDEscription: Choose exixting KeyPair.
+    ConstraintDescription: Choose exixting KeyPair.
   
 Resources:
   WebSecGrp:
@@ -55,5 +57,5 @@ Outputs:
   WebSiteURL:
     Value: !Sub 
       - http://${PublicAddress}
-      - PublicAddress: !GetAtt WEbHost.PublicDsnName
+      - PublicAddress: !GetAtt WebHost.PublicDnsName
     Description: BookStore Web APP URL 
