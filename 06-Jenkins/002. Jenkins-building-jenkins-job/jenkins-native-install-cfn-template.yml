@@ -1,9 +1,10 @@
 AWSTemplateFormatVersion: 2010-09-09
 
 Description: >
-  This Cloudformation Template creates a Jenkins Server on Docker machine on EC2 Instance. 
-  Jenkins Server will run on Amazon Linux 2 (ami-026dea5602e368e96) EC2 Instance with
-  custom security group allowing SSH (22) and HTTP (80, 8080) connections from anywhere.
+  This Cloudformation Template creates a Jenkins Server in North Virginia Region.
+  Jenkins Server will run on Amazon Linux 2 EC2 Instance with custom security group 
+  allowing SSH (22) and HTTP (80, 8080) connections from anywhere.
+
 
 Parameters:
   KeyPairName:
@@ -32,7 +33,7 @@ Resources:
   JenkinsServer:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-09d95fab7fff3776c
+      ImageId: ami-0644c22f90412d908
       InstanceType: t2.micro
       KeyName: !Ref KeyPairName
       SecurityGroupIds:
@@ -40,19 +41,20 @@ Resources:
       Tags:                
         -                        
           Key: Name
-          Value: !Sub Jenkins Server of ${AWS::StackName}   
+          Value: !Sub joe-blue-native-${AWS::StackName}   
       UserData:
         Fn::Base64: |
           #! /bin/bash
           yum update -y
-          amazon-linux-extras install docker -y
-          systemctl start docker
-          systemctl enable docker
-          usermod -a -G docker ec2-user
-          docker run -u root --rm -d -p 8080:8080 -p 50000:50000 --name jenkins \
-          -v jenkins-data:/var/jenkins_home \
-          -v /var/run/docker.sock:/var/run/docker.sock \
-          jenkins/jenkins:lts
+          amazon-linux-extras install java-openjdk11 -y
+          yum install java-devel -y
+          wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
+          rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+          yum install jenkins -y
+          systemctl start jenkins
+          systemctl enable jenkins
+          yum install git -y
+
 Outputs:
   JenkinsDNS:
     Description: Jenkins Server DNS Name
