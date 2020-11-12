@@ -1,7 +1,8 @@
-version: "3"
+version: "3.7"
+
 services:
   database:
-    image: mysql:latest
+    image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: R1234r
       MYSQL_DATABASE: bookstore_db
@@ -13,10 +14,10 @@ services:
   myapp:
     build: .
     restart: always
-    ports:
-      - "80:80"
     depends_on:
       - database
+    ports:
+      - "80:80"
     networks:
       - clarusnet 
       

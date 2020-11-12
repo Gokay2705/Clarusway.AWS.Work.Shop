@@ -1,0 +1,14 @@
+
+## Dockerfile yazdiktan sonra bu komut ile image olusturabiliriz.
+
+	$ docker build -t “user/bookstore:latest” .
+
+
+## eger boyle yaparsak myapp icine:
+
+	image : user/bookstore:latest
+	
+	"build: ." komutunun yerine eklemeliyiz.
+	
+## docker run -d -p 80:8080 bharathshetty4/supermario
+
