@@ -17,7 +17,7 @@ services:
     networks:
       - clarusnet 
   app-server:
-    image: "${ECR_REGISTRY}/${APP_REPO_NAME}:latest"  # .env uzantili dosyadan ismini alir.
+    image: "${ECR_REGISTRY}/${APP_REPO_NAME}:latest"  # .env uzantili dosyadan ismini alir. ECR_REGISTR ve APP_REPO_NAME tanimlamamiz yeterli.
     deploy:
       mode: global
       update_config:
