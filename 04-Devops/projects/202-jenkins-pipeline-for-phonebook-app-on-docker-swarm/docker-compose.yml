@@ -10,18 +10,20 @@ services:
       MYSQL_PASSWORD: Clarusway_1
     volumes:
       - db-data:/var/lib/mysql
-      - ./init.sql:docker-entrypoint-initdb.d/init.sql
-
-
-
+      # - ./init.sql:docker-entrypoint-initdb.d/init.sql
+    configs:
+      - source: initialdatabase
+        target: /docker-entrypoint-initdb.d/init.sql  # en iyi cozum bu cunku database nerede kurulacagina grandmaster belirliyor. biz bilmiyoruz.
     networks:
       - clarusnet 
-
-  myapp:
-    build: .
-    restart: always
-    depends_on:
-      - database
+  app-server:
+    image: "${ECR_REGISTRY}/${APP_REPO_NAME}:latest"  # .env uzantili dosyadan ismini alir.
+    deploy:
+      mode: global
+      update_config:
+        parallelism: 2      # 2 konteyner oldur 5s bekle diger 2 ayaga kaldir.
+        delay: 5s           # 5s bekle
+        order: start-first  # once olusturdugunu once deploy et.
     ports:
       - "80:80"
     networks:
@@ -29,4 +31,11 @@ services:
       
 networks:
   clarusnet:
-    driver: bridge
+    driver: overlay
+
+volumes:
+  db-data:
+
+configs:
+  initialdatabase:
+    file: ./init.sql
