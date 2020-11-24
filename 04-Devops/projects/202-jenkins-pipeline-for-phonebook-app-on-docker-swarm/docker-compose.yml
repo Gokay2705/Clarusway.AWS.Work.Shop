@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: P12345p
+      MYSQL_DATABASE: phonebook_db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Clarusway_1
+    networks:
+      - clarusnet 
+
+  myapp:
+    build: .
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - "80:80"
+    networks:
+      - clarusnet 
+      
+networks:
+  clarusnet:
+    driver: bridge
