@@ -8,6 +8,12 @@ services:
       MYSQL_DATABASE: phonebook_db
       MYSQL_USER: admin
       MYSQL_PASSWORD: Clarusway_1
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./init.sql:docker-entrypoint-initdb.d/init.sql
+
+
+
     networks:
       - clarusnet 
 
