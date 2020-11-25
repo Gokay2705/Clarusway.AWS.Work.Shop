@@ -11,39 +11,36 @@ Resources:
   InstanceConnectPolicy:
     Type: "AWS::IAM::ManagedPolicy"
     Properties:
-      PolicyDocument:
+      PolicyDocument: #required
         Version: 2012-10-17
         Statement:
           - Effect: Allow
-            Action: 
-              - ec2-instance-sonnect:SendSSHPublicKey  #docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-connect-set-up.html
+            Action:
+              - ec2-instance-connect:SendSSHPublicKey
             Resource:
               - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*
-            Condition: {"StringEquals":{"ec2:osuser":ec2-user}}
+            Condition: {"StringEquals": {"aws:ResourceTag/project": "203"}}
           - Effect: Allow
             Action:
-              - ec2:DescribeInstance
+              - ec2:DescribeInstances
             Resource: "*"
-            
-            #Önce yukarıdaki policy yi tanımlıyorum. Sonrasında aşağıda IAM role tanımlayacağım.
-
   EC2InstanceConnect:
-    Type: AWS::IAM::Role
+    Type: "AWS::IAM::Role"
     Properties:
       AssumeRolePolicyDocument: 
         Statement:
-          - Effect: "Allow"
+          - Effect: Allow
             Principal:
               Service:
-              - ec2.amazonaws.com
+              - ec2.amazonaws.com 
             Action:
               - 'sts:AssumeRole'
       ManagedPolicyArns:
         - !Ref InstanceConnectPolicy
   EC2ConnectProfile:
-    Type: AWS::IAM::InstanceProfile
+    Type: "AWS::IAM::InstanceProfile"
     Properties:
-      Roles: 
+      Roles: #required
         - !Ref EC2InstanceConnect
   DockerMachinesSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -80,6 +77,8 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub Docker Master of ${AWS::StackName}
+        - Key: project
+          Value: "203"
   DockerWorker1:
     Type: AWS::EC2::Instance
     Properties:
@@ -105,6 +104,8 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub Docker Worker of ${AWS::StackName}
+        - Key: project
+          Value: "203"
 Outputs:
   DockerManagerDNSName:
     Description: Docker Manager DNS Name
