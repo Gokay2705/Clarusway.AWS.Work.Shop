@@ -100,6 +100,35 @@
     55	kubectl exec -it nginx-deployment-7cf55fb7bb-c7jpp -- bash
 	56	kubectl delete -f mydeployment.yaml
 	
+	61  mkdir deployment
+    62  cd deployment/
+    64  nano clarus-deploy.yaml
+		apiVersion: apps/v1
+		kind: Deployment
+		metadata:
+		  name: clarus-deploy
+		  labels:
+			app: container-info
+		  annotations:
+			kubernetes.io/change-cause: deploy/clarus-deploy is set as container-info=clarusways/container-info:1.0
+		spec:
+		  replicas: 3
+		  selector:
+			matchLabels:
+			  app: container-info
+		  template:
+			metadata:
+			  labels:
+				app: container-info
+			spec:
+			  containers:
+			  - name: container-info
+				image: clarusways/container-info:1.0
+				ports:
+				- containerPort: 80
+
+	66  kubectl apply -f clarus-deploy.yaml
+    67  kubectl get deploy,rs,po -l app=container-info
 	
 	
    
