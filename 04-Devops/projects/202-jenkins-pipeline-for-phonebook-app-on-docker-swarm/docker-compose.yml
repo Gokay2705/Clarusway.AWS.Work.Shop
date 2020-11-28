@@ -4,31 +4,31 @@ services:
   database:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: P12345p
+      MYSQL_ROOT_PASSWORD: P123456p
       MYSQL_DATABASE: phonebook_db
       MYSQL_USER: admin
       MYSQL_PASSWORD: Clarusway_1
     volumes:
       - db-data:/var/lib/mysql
-      # - ./init.sql:docker-entrypoint-initdb.d/init.sql
+    networks:
+      - clarusnet
     configs:
       - source: initialdatabase
-        target: /docker-entrypoint-initdb.d/init.sql  # en iyi cozum bu cunku database nerede kurulacagina grandmaster belirliyor. biz bilmiyoruz.
-    networks:
-      - clarusnet 
+        target: /docker-entrypoint-initdb.d/init.sql
+
   app-server:
-    image: "${ECR_REGISTRY}/${APP_REPO_NAME}:latest"  # .env uzantili dosyadan ismini alir. ECR_REGISTR ve APP_REPO_NAME tanimlamamiz yeterli.
+    image: 046402772087.dkr.ecr.us-east-1.amazonaws.com/clarusway-repo/phonebook-app:latest
     deploy:
       mode: global
       update_config:
-        parallelism: 2      # 2 konteyner oldur 5s bekle diger 2 ayaga kaldir.
-        delay: 5s           # 5s bekle
-        order: start-first  # once olusturdugunu once deploy et.
+        parallelism: 2
+        delay: 5s
+        order: start-first
     ports:
       - "80:80"
     networks:
-      - clarusnet 
-      
+      - clarusnet
+
 networks:
   clarusnet:
     driver: overlay
@@ -38,4 +38,4 @@ volumes:
 
 configs:
   initialdatabase:
-    file: ./init.sql
+      file: ./init.sql

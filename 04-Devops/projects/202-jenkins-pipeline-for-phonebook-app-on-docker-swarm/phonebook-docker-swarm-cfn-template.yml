@@ -84,7 +84,7 @@ Resources:
     Type: "AWS::EC2::LaunchTemplate"
     Properties:
       LaunchTemplateData:
-        ImageId: ami-038b5c5d2ad6a5090
+        ImageId: ami-04d29b6f966df1537
         InstanceType: t2.micro
         KeyName: !Ref KeyPairName
         IamInstanceProfile: 
@@ -120,7 +120,7 @@ Resources:
     Type: "AWS::EC2::LaunchTemplate"
     Properties:
       LaunchTemplateData:
-        ImageId: ami-038b5c5d2ad6a5090
+        ImageId: ami-04d29b6f966df1537
         InstanceType: t2.micro
         KeyName: !Ref KeyPairName
         IamInstanceProfile: 
@@ -155,7 +155,7 @@ Resources:
   DockerManager1:
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-038b5c5d2ad6a5090
+      ImageId: ami-04d29b6f966df1537
       InstanceType: t2.medium
       KeyName: !Ref KeyPairName
       IamInstanceProfile: !Ref EC2ConnectProfile
