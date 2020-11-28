@@ -129,6 +129,20 @@
 
 	66  kubectl apply -f clarus-deploy.yaml
     67  kubectl get deploy,rs,po -l app=container-info
-	
+
+    73  kubectl rollout history deploy clarus-deploy
+    74  kubectl rollout history deploy clarus-deploy --revision=1
+    75  kubectl set image deploy clarus-deploy container-info=clarusways/container-info:2.0 --record=true
+    76  kubectl rollout history deploy clarus-deploy
+    77  kubectl rollout history deploy clarus-deploy --revision=1
+    78  kubectl rollout history deploy clarus-deploy --revision=2
+    79  kubectl get deploy,rs,po -l app=container-info
+    80  kubectl edit deploy/clarus-deploy
+
+    84  kubectl rollout history deploy clarus-deploy.yaml
+    85  kubectl rollout history deploy clarus-deploy
+    86  kubectl rollout history deploy clarus-deploy --revision=3
+    87  kubectl get deploy,rs,po -l app=container-info
+    88  kubectl rollout undo deploy clarus-deploy --to-revision=1
 	
    
