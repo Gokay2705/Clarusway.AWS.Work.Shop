@@ -92,5 +92,14 @@
 		
 	40	kubectl apply -f mydeployment.yaml 
 	41	kubectl get deploy
+	42	kubectl logs nginx-deployment-7cf55fb7bb-c7jpp 
+	
+	49  kubectl get rs
+	50  kubectl get po
+    54  kubectl exec nginx-deployment-7cf55fb7bb-c7jpp -- date
+    55	kubectl exec -it nginx-deployment-7cf55fb7bb-c7jpp -- bash
+	56	kubectl delete -f mydeployment.yaml
+	
+	
 	
    
