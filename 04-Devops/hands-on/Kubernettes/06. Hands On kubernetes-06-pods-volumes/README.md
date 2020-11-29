@@ -74,7 +74,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/home/ubuntu/pv-data"
+    path: "/home/ubuntu/pv-data" # worker pwd yolu
 ```
 
 - Create the PersistentVolume `clarus-pv-vol`.
