@@ -353,7 +353,7 @@ kubectl apply -f web-svc.yaml
 kubectl get svc -o wide
 ```
 
-- We can visit `http://<public-node-ip>:30036` and access the application. 
+- We can visit `http://<worker node public-node-ip>:30036` and access the application. 
 
 ### Endpoints
 
