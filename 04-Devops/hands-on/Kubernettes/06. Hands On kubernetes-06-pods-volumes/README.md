@@ -353,7 +353,7 @@ kubectl delete -f .
 - Create a folder name it emptydir.
 
 ```bash
-mkdir emptydir && cd empydir
+mkdir emptydir && cd emptydir
 ```
 
 - Create an nginx.yaml file for creating an nginx pod.
