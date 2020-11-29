@@ -356,7 +356,7 @@ kubectl delete -f .
 mkdir emptydir && cd emptydir
 ```
 
-- Create an nginx.yaml file for creating an nginx pod.
+- Create an 'nginx.yaml' file for creating an nginx pod.
 
 ```yaml
 apiVersion: v1
