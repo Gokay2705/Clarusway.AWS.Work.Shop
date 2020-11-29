@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: for-ping
+spec:
+  containers:
+  - name: for-ping
+    image: clarusways/for-ping
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always

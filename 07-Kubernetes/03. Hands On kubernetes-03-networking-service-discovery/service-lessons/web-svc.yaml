@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service   
+metadata:
+  name: web-flask-svc
+  labels:
+    app: web-flask
+spec:
+apiVersion: v1
+kind: Service   
+metadata:
+  name: web-flask-svc
+  labels:
+    app: web-flask
+spec:
+  type: NodePort  
+  ports:
+  - port: 3000  
+    targetPort: 5000
+  selector:
+    app: web-flask   type: ClusterIP  
+  ports:
+  - port: 3000  
+    targetPort: 5000
+  selector:
+    app: web-flask 
