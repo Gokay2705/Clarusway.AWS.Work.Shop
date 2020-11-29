@@ -289,7 +289,7 @@ kubectl exec -it clarus-db -- sh
 
 ### NodePort
 
-- Change the service type of web-flask-svc service to NodePort to use the Node IP and a static port to expose the service outside the cluster. So we get the yaml file below.
+- Change the service type of 'web-flask-svc' service to NodePort to use the Node IP and a static port to expose the service outside the cluster. So we get the yaml file below.
 
 ```yaml
 apiVersion: v1
@@ -319,7 +319,7 @@ kubectl apply -f web-svc.yaml
 kubectl get svc -o wide
 ```
 
-- We can visit `http://<public-node-ip>:<node-port>` and access the application. Pay attention to load balancing. 
+- We can visit `http://<Worker node Public IPv4 address>:<node-port>` and access the application. Pay attention to load balancing. 
 Note: Do not forget to open the Port `<node-port>` in the security group of your node instance.
 
 - We can also define NodePort via adding nodePort number to service yaml file. Check the below. 
