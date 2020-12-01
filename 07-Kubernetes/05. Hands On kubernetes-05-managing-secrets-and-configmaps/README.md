@@ -354,7 +354,7 @@ $ kubectl get svc demo-service -o wide
 NAME           TYPE           CLUSTER-IP    EXTERNAL-IP   PORT(S)        AGE     SELECTOR
 demo-service   LoadBalancer   10.97.39.39   <pending>     80:31374/TCP   2m20s   app=demo
 
-$ curl < worker-ip >:31374
+$ curl < worker-ip >:31374 #check your securty group for output port.
 Hello, Clarusway!
 ```
 This is the default container behaviour.
