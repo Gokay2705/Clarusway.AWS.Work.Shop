@@ -156,7 +156,7 @@ You should see the output below
 NAME             TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 svc/kubernetes   ClusterIP   10.100.0.1   <none>        443/TCP   1m
 ```
-7. Run the command below to show that there is no node for now.
+7. Run the command below to show that there is no node for now. #calisan node yok.
 ```bash
 kubectl get node
 ```
