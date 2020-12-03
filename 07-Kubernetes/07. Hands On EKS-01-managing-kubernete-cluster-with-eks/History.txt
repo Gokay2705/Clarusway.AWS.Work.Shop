@@ -1,0 +1,15 @@
+    1  aws eks list-clusters
+    2  aws config
+    3  aws configure
+    4  clear
+    5  aws eks list-clusters
+    6  aws sts get-caller-identity
+    7  ls -a
+    8  aws eks --region us-east-1 update-kubeconfig --name MyEKSCluster
+    9  ls -al
+   10  kubectl get svc
+   11  kubectl get no
+   12  kubectl get node
+   13  aws eks describe-cluster --name MyEKSCluster --query cluster.status
+   
+   
