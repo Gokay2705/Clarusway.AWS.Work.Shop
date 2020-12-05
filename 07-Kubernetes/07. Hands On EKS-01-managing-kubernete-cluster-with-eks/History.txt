@@ -12,4 +12,15 @@
    12  kubectl get node
    13  aws eks describe-cluster --name MyEKSCluster --query cluster.status
    
-   
+   15  kubectl get nodes --watch
+   16  kubectl get node
+   17  kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+   18  kubectl -n kube-system annotate deployment.apps/cluster-autoscaler cluster-autoscaler.kubernetes.io/safe-to-evict="false"
+   19  kubectl -n kube-system edit deployment.apps/cluster-autoscaler
+   20  kubectl get node
+   21  kubectl -n kube-system set image deployment.apps/cluster-autoscaler cluster-autoscaler=us.gcr.io/k8s-artifacts-prod/autoscaling/cluster-autoscaler:v1.18.9-eks-d1db3c
+   22  kubectl create namespace my-namespace
+   23  nano myyaml.yaml
+   24  kubectl apply -f myyaml.yaml
+   25  kubectl get svc
+   26  kubectl get svc -n my-namespace   
