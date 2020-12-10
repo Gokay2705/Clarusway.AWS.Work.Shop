@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deploy
+  labels:
+    name: mysql-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mysql-pod
+  template:
+    metadata:
+      name: mysql-pod
+      labels:
+        name: mysql-pod
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: mysql
+        imagePullPolicy: Always #https://kubernetes.io/docs/concepts/configuration/overview/
+        env:
+        - name: MYSQL_PASSWORD
+          value: Clarusway_1
+        - name: MYSQL_ROOT_PASSWORD
+          value: P12345p
+        - name: MYSQL_USER
+          value: clarus
+        - name: MYSQL_DATABASE
+          value: phonebook
+        ports: 
+        - containerPort: 3306    #docker run --name serdar -p 80:80 nginx
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql  #docker run --name serdar3 -v /mnt/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=P12345p -d mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+      

@@ -1,0 +1,14 @@
+apiVersion: v1            #https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+kind: PersistentVolume
+metadata:
+  name: mysql-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual # Empty string must be explicitly set otherwise default StorageClass will be set
+  capacity:               
+    storage: 20Gi         #https://unofficial-kubernetes.readthedocs.io/en/latest/concepts/storage/persistent-volumes/
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
