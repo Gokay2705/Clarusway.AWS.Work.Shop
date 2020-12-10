@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  This template creates an intance with Terraform on SSH port "22".
+Parameters:
+  KeyName:
+    Description: Please choose your SSH key file
+    Type: AWS::EC2::KeyPair::KeyName
+Resources:
+  myEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      KeyName: !Ref KeyName
+      ImageId: ami-04d29b6f966df1537
+      InstanceType: t2.micro
+      SecurityGroupIds:
+        - !GetAtt TerraformSecGr.GroupId
+      UserData: !Base64 |
+        #!/bin/bash -ex
+        yum update -y
+        yum install -y yum-utils
+        yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+        yum -y install terraform
+      Tags:
+        - Key: Name
+          Value: Terraform
+
+  TerraformSecGr:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
