@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: >
+  This Cloudformation Template creates a Nexus Server.
+
+Parameters:
+  KeyPairName:
+    Description: Enter the name of your Key Pair for SSH connections.
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: Must one of the existing EC2 KeyPair
+
+Resources:
+  NexusServerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable SSH and HTTP for Nexus Server
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 8081
+          ToPort: 8081
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+  NexusServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-04d29b6f966df1537
+      InstanceType: t2.medium
+      KeyName: !Ref KeyPairName
+      SecurityGroupIds:
+        - !GetAtt NexusServerSecurityGroup.GroupId
+      Tags:                
+        -                        
+          Key: Name
+          Value: !Sub Nexus Server of ${AWS::StackName}   
+      UserData:
+        Fn::Base64: |
+			  #!/bin/bash
+        cd /home/ec2-user
+        sudo yum update -y
+        sudo yum install java-1.8.0-openjdk
+        sudo wget https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
+        sudo sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+        sudo yum install -y apache-maven
+        mkdir nexus-installation && cd nexus-installation
+        sudo wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+        sudo tar xvzf latest-unix.tar.gz
+        cd nexus-3.29.0-02/bin && sudo ./nexus run
+Outputs:
+  NexusDNS:
+    Description: Nexus Server DNS Name
+    Value: !Sub 
+      - ${PublicAddress}
+      - PublicAddress: !GetAtt NexusServer.PublicDnsName
+  NexusURL:
+    Description: Nexus Server URL
+    Value: !Sub 
+      - http://${PublicAddress}:8081
+      - PublicAddress: !GetAtt NexusServer.PublicDnsName

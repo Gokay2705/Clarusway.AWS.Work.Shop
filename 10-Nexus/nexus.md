@@ -32,13 +32,12 @@ At the end of this hands-on training, students will be able to;
 
 Install Java: 
 ```
-sudo yum install java-1.8.0-openjdk
+sudo yum install java-1.8.0-openjdk # 1.8 de Nexus calisiyor digerlerinde sikinti
 ```
 Install Maven
 
 ```
-sudo wget https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d
-epel-apache-maven.repo
+sudo wget https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
 
 ```
 ```
@@ -65,7 +64,8 @@ sudo tar xvzf nexus-<version> from the command line.
 Start the repository manager: 
 
 ```
-./bin/nexus run.
+cd nexus-3.29.0-02
+sudo ./bin/nexus run
 ```
 
 Open your browser to load the repository manager: http://localhost:8081
