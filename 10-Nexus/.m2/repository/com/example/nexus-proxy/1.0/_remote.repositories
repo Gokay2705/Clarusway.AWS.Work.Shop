@@ -1,0 +1,4 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Dec 12 19:06:58 UTC 2020
+nexus-proxy-1.0.pom>=
+nexus-proxy-1.0.jar>=

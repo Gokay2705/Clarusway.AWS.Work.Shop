@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Dec 12 18:39:42 UTC 2020
+log4j-1.2.12.jar>central=
+log4j-1.2.12.pom>central=
+log4j-1.2.12.pom>nexus=
+log4j-1.2.12.jar>nexus=

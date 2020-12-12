@@ -214,7 +214,7 @@ Next up, configure Maven release and snapshot repositories for deployment. This 
 Your mirror url now should point to http://localhost:8081/repository/maven-public 
 
 So your settings.xml should look like this:
-
+home directory icinde .m2 dosaysi icine settingds.xml dosyasini olusturun. Eger .m2 dosyasi yoksa pom file oldugu yere "mvn clean deploy" yazin.
 ```
 <settings>
   <mirrors>

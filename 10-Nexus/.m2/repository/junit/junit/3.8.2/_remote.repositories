@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Dec 12 18:39:42 UTC 2020
+junit-3.8.2.pom>central=
+junit-3.8.2.pom>nexus=
+junit-3.8.2.jar>nexus=
+junit-3.8.2.jar>central=

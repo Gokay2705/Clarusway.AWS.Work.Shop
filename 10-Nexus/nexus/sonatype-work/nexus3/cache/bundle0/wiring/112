@@ -1,0 +1,12 @@
+osgi.wiring.package; (osgi.wiring.package=javax.annotation)
+0; version=1.2.0
+osgi.wiring.package; (&(osgi.wiring.package=com.google.common.io)(version>=20.0.0))
+4; version=27.1.0
+osgi.wiring.package; (&(osgi.wiring.package=com.google.common.collect)(version>=20.0.0))
+4; version=27.1.0
+osgi.wiring.package; (osgi.wiring.package=org.sonatype.gossip)
+114; version=0.0.0
+osgi.wiring.package; (&(osgi.wiring.package=org.slf4j)(version>=1.7.0))
+34; version=1.7.30
+osgi.wiring.package; (&(osgi.wiring.package=com.google.common.base)(version>=20.0.0))
+4; version=27.1.0

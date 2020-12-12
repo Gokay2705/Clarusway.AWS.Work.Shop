@@ -1,0 +1,6 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Sat Dec 12 18:39:36 UTC 2020
+junit-4.10.pom>nexus=
+junit-4.10.jar>central=
+junit-4.10.jar>nexus=
+junit-4.10.pom>central=
