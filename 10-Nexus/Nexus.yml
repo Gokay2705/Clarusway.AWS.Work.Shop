@@ -37,8 +37,9 @@ Resources:
           Value: !Sub Nexus Server of ${AWS::StackName}   
       UserData:
         Fn::Base64: |
-			  #!/bin/bash
-        cd /home/ec2-user
+        #!/bin/bash
+        
+        cd /home/ec2-user/
         sudo yum update -y
         sudo yum install java-1.8.0-openjdk
         sudo wget https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
@@ -47,7 +48,9 @@ Resources:
         mkdir nexus-installation && cd nexus-installation
         sudo wget https://download.sonatype.com/nexus/3/latest-unix.tar.gz
         sudo tar xvzf latest-unix.tar.gz
-        cd nexus-3.29.0-02/bin && sudo ./nexus run
+        cd nexus-3.29.0-02
+        sudo ./bin/nexus run
+
 Outputs:
   NexusDNS:
     Description: Nexus Server DNS Name
