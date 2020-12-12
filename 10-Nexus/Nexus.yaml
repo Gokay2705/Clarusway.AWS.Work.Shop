@@ -38,8 +38,6 @@ Resources:
       UserData:
         Fn::Base64: |
         #!/bin/bash
-        
-        cd /home/ec2-user/
         sudo yum update -y
         sudo yum install java-1.8.0-openjdk
         sudo wget https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
@@ -50,13 +48,7 @@ Resources:
         sudo tar xvzf latest-unix.tar.gz
         cd nexus-3.29.0-02
         sudo ./bin/nexus run
-
 Outputs:
-  NexusDNS:
-    Description: Nexus Server DNS Name
-    Value: !Sub 
-      - ${PublicAddress}
-      - PublicAddress: !GetAtt NexusServer.PublicDnsName
   NexusURL:
     Description: Nexus Server URL
     Value: !Sub 
