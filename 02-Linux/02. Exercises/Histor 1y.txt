@@ -1,0 +1,45 @@
+
+    2  echo $SHELL
+    3  printenv
+    4  env
+    5  cat /etc/passwd
+
+   10  which bash
+   11  echo $PS1
+   12  export PS1="\t \j "
+
+   14  sleep 20 &
+   15  export PS1="Saat: \t \n calisan isler: \j "
+   16  export PS1="Saat: \t \ncalisan isler: \j "
+   17  sleep 10 &
+
+   19  export PS1="{ \! } ==> "
+
+   24  export PS1="[\033[1;35m]\u@\h[\033[0m] "
+
+   32  export PS1="$PS1\a "
+
+   37  export PS1="$PS1 "
+   38  export PS1="==> "
+   39  vi hello.sh
+   40  hello.sh
+   41  echo $PATH
+   42  ./hello.sh
+   44  chmod +x hello.sh
+   46  ./hello.sh
+   47  bash hello.sh
+
+   52  vi mycopy.sh
+   56  chmod +x mycopy.sh
+   58  ./mycopy.sh
+   59  ./mycopy.sh hello.sh mello.sh
+
+   87  echo $PS1
+   88  export PS1="\t \j "
+   91  sleep 20&
+   92  sleep 15&
+   93  export PS1="{\!} ===> "
+
+   98  export PS1="[\033[1;35m]\u@\h[\033[0m] "
+   99  export PS1="$PS1\a "
+ 

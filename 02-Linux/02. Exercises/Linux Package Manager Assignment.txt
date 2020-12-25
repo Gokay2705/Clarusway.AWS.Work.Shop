@@ -1,0 +1,16 @@
+Exercise:
+
+1. Uninstall git with all unused dependencies
+sudo yum autoremove git
+2. Check installed git
+git --version
+3. Find previous available git version
+sudo yum --showduplicates list git
+4. Install previous available git version
+sudo yum install git- 2.14.3-2.amzn2 -y
+5. Check installed git version
+git --version
+6. Update git to the latest version
+sudo yum update git
+7. Check installed git version
+git --version
