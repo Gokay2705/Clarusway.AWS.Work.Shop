@@ -1,0 +1,529 @@
+GIT Workshop
+
+** Git Nedir? 
+Git, bir sürüm/versiyon kontrol sistemidir (Bitbucket, Mercurial, Microsoft Team Foundation Server, AWS Code Commit ...).
+Yazdığımız projeleri, bilgisayarımızda ya da harici disklerde binbir tehlike altında değilde internet üzerinde tutmamızı ve yönetmemizi sağlayan bir sistemdir.
+
+* Öncelikle https://git-scm.com/downloads bu linke giderek işletim sistemimize uygun bir versiyon indirmemiz ve basit
+adımlarla kurulum yapmamız gerekiyor. (** https://git-scm.com/downloads **)
+
+* Kurulumu tamamladıktan sonra proje üzerinde yaptığımız tüm değişikliklerin tutulabilmesi için name ve email bilgilerimizin
+konfigürasyonunu yapmamız gerekiyor.
+1- git config --global user.name "<Your Name>"
+2- git config --global user.email "<Your Email>@gmail.com"
+İsmi ve emailimizi kontrol etmek için;
+3- git config --global user.name
+4- git config --global user.email
+------------------------------------------------------------------------
+Masaüstünde proje dizini oluşturalım.
+5- cd Desktop/
+6- mkdir project_workshop
+7- cd project_workshop
+*Git projesi oluşturalım
+8- git init
+9- ls -a
+
+*Proje dizinine bir metin/py/java belgesi oluşturalım. İçine bir şeyler yazabiliriz.
+11- vi first.py
+	print("Hello git")
+
+*first.py dosyasını git repository mize ekleyelim. Öncelikle stage area'ya ekliyoruz.
+12- git add .
+
+*Git deposuna eklemek için commit ediyoruz.
+13- git commit -m "first commit"
+
+output: 
+		$ git commit -m "first commit"
+		[master (root-commit) 02abc11] first commit
+ 		1 file changed, 2 insertions(+)
+ 		create mode 100644 first.py
+
+*Aldığımız versiyonları listelemek için:
+14- git log
+
+output: 
+    commit 446ee3d43744b6d0e46e37e3adf6edaddf98fa0a (HEAD -> master)
+		Author: Edward <edwardbenedict92@gmail.com>
+		Date:   Sat May 23 15:06:02 2020 +0300
+
+    	first commit
+
+* Yapılan değişiklikleri görmek için
+15- git status
+
+output: 
+ 		On branch master
+		nothing to commit, working tree clean
+
+*Yeni bir dosya ekleyelim
+16- nano second.txt
+  İçine "this is Second text file"
+  çıkarken CTRL+O ve entera basıyoruz.CTRL+X ile çıkıyoruz.
+
+*Değişiklikleri görmek için:
+17- git status
+
+output:
+ 		On branch master
+		Untracked files:
+  		(use "git add <file>..." to include in what will be committed)
+        second.txt
+
+		nothing added to commit but untracked files present (use "git add" to track)
+
+*Sadece istediğimiz dosyayı(second.txt) stage area'ya eklemek için:
+18- git add second.txt
+19- git status
+
+output: 
+		On branch master
+		Changes to be committed:
+  			(use "git restore --staged <file>..." to unstage)
+        	new file:   second.txt
+
+18- git commit -m "second.txt added"
+
+output: 
+		[master fc808be] second.txt added
+ 		1 file changed, 4 insertions(+)
+ 		create mode 100644 second.txt
+
+19- git status
+
+output: 
+		On branch master
+		nothing to commit, working tree clean
+
+*Aldığımız versiyonları listeyelim
+20- git log
+			commit fc808becb1d6cf2f6656a790a449bb1bac2ad6c1 (HEAD -> master)
+			Author: Edward <edwardbenedict92@gmail.com>
+			Date:   Sat May 23 15:26:44 2020 +0300
+
+    				second.txt added
+
+			commit 02abc11608ff27ee621ca5e04186934556ecdb68
+			Author: Edward <edwardbenedict92@gmail.com>
+			Date:   Sat May 23 15:06:02 2020 +0300
+
+    				first commit
+
+* Daha önce commit ettiğimiz dosyada değişiklik yapalım
+21- vi first.py
+		print("Hello git")
+		print("Modified")
+
+22- git status
+
+output: 
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   first.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+* Değişikleri stage area ya göndermek için:
+23- git add .
+24- git commit -m "first.py modified"
+25- git log
+
+output:
+commit 64d4943b16c44c43379b2f4fe0d83b583d365b4e (HEAD -> master)
+Author: Edward <edwardbenedict92@gmail.com>
+Date:   Sat May 23 15:42:52 2020 +0300
+
+     first.py modified
+
+commit fc808becb1d6cf2f6656a790a449bb1bac2ad6c1
+Author: Edward <edwardbenedict92@gmail.com>
+Date:   Sat May 23 15:26:44 2020 +0300
+
+    second.txt added
+
+commit 02abc11608ff27ee621ca5e04186934556ecdb68
+Author: Edward <edwardbenedict92@gmail.com>
+Date:   Sat May 23 15:06:02 2020 +0300
+
+    first commit
+
+26- git status
+
+output: 
+		On branch master
+		nothing to commit, working tree clean
+
+* second.txt dosyasının içindekleri silelim
+27- vi first.py
+
+* first.py dosyasında değişiklik yapalım
+28- vi first.py
+	print("Hello git")
+	print("Again and again Modified")
+
+29- git status
+
+output:
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   first.py
+
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+* Stage Area ya gönderelim
+30- git add .
+
+* git diff komutunu parametresiz kullanılırsa çalışma dizini ile git deposu arasındaki farklıları gösterir.
+31- git diff
+
+* Staging area ile git deposu arasındaki farkları görmek için:
+32- git diff --staged
+output:
+diff --git a/first.py b/first.py
+index 2b0daf5..b408898 100644
+--- a/first.py
++++ b/first.py
+@@ -1,2 +1,3 @@
+ print("Hello git")
+-print("Modified")
++print("Again and again Modified")
++diff --git a/second.txt b/second.txt
+index 0b702da..b28b04f 100644
+--- a/second.txt
++++ b/second.txt
+@@ -1,4 +1,3 @@
+-Second text file
+
+* Commit edelim
+33- git commit -m "again and again modified"
+output:
+[master bfb9ec0] again and again modified
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+ * Repodan dosya silmek
+ * Dosya dizinin second.txt yi silelim
+34- rm second.txt
+35- ls
+
+* Komut seçeneklerini görmek için git status komutu yazılabilir.
+36- git status
+
+output:
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directry)
+        deleted:    second.txt
+no changes added to commit (use "git add" and/or "git commit -a")
+
+* git add veya rm komutuyla değişikliği staging area ya gönderebiliriz.
+
+37- git rm second.txt
+
+output:
+rm 'second.txt'
+
+38- git status
+
+output:
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    second.txt
+
+39- git commit -m "second.txt deleted"
+output:
+[master 656415f] second.txt deleted
+ 1 file changed, 3 deletions(-)
+ delete mode 100644 second.txt
+
+40- git status
+
+output:
+On branch master
+nothing to commit, working tree clean
+
+** Klasör silme işlemi
+* Klasör oluşturalım
+41- mkdir new_folder
+42- cd new_folder
+
+* İçerisine dosyalar oluşturalım
+43- touch third.py fourth.java fifth.js
+44- cd ..
+
+* Git reposuna gönderelim
+45- git add .
+46- git commit -m "new_folder created"
+
+output:
+[master e82cb2c] new_folder created
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 new_folder/fifth.js
+ create mode 100644 new_folder/fourth.java
+ create mode 100644 new_folder/third.py
+
+* Bu dosyayı nasıl sileceğiz?
+47- git rm -r new_folder
+
+output:
+rm 'new_folder/fifth.js'
+rm 'new_folder/fourth.java'
+rm 'new_folder/third.py'
+
+48- git status
+
+output:
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    new_folder/fifth.js
+        deleted:    new_folder/fourth.java
+        deleted:    new_folder/third.py
+
+49- git commit -m "deleted new_folder"
+
+output:
+[master 4c0ff28] deleted new_folder
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ delete mode 100644 new_folder/fifth.js
+ delete mode 100644 new_folder/fourth.java
+ delete mode 100644 new_folder/third.py
+
+** Değişiklikleri geri alma
+* first.py dosyasında değişiklik yapalım
+50- vi first.py
+* first.py dosyasının içindekileri silelim
+* Kontrol etmekcat first.py
+
+
+* Sildiğimiz bölümü geri almak için
+51- git status
+output:
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   first.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+* Çalışma dizinindeki değişiklikleri geri getirebilmek için girebileceğimiz komutlar ekranda çıkıyor.
+52- git restore first.py 
+** Not: Bazı işletim sistemlerinde "git checkout -- first.py" yazmak gerekebilir.
+
+53- git status
+output:
+On branch master
+nothing to commit, working tree clean
+
+* first.py içini kontrol edelim.
+54- cat first.py
+* Değişiklikler geri geldi.
+
+* Bir tane daha dosya oluturalım.
+55-  vi new_second.txt
+* İçerisine "This a text file for git workshop."
+
+* Kurtarma işlemini dosyayı silerek deneyelim.
+56- rm first.py
+57- ls 
+
+58- git status 
+output:
+On branch master
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    first.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        newsecond.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+59- git restore first.py
+* Dosyamız kurtarıldı.
+---------
+** Staging Area ya gönderilmiş dosyayı kurtaralım
+* first.py dosyasının içindekileri silelim ve "..." koyalım.
+60- vi new_second.txt   vi first.py
+61- git status
+
+output:
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   new_second.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   first.py
+
+
+* Staging area ya alalım.
+62- git add first.py
+63- git status
+64- git restore --staged first.py 
+* Bazı işletim sistemlerinde "git reset HEAD first.py"
+65- git status
+
+output: 
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   first.py
+
+* Silme işlemi geçiş bölgesinden geri aldık ancak dizinimizde hala geri alınmadı bunu için:
+66- git restore first.py
+* Dosyamız kurtarıldı.
+
+
+** Versiyon değiştirme
+67- git log
+output:
+commit feaa8f599b3d16a6489b20798c3fea791d6aa0dc
+Author: Edward <edwardbenedict92@gmail.com>
+Date:   Sun May 24 12:54:52 2020 +0300
+
+    version1
+
+commit 4c0ff2895898a0031744b6b9db1401ffe5aad1b9
+Author: Edward <edwardbenedict92@gmail.com>
+Date:   Sun May 24 12:32:40 2020 +0300
+
+    deleted new_folder
+
+* Versiyonlar listelenecek
+* Hash kodunu kullanıyoruz "commit ***(HASH-CODE)*** "
+* İster Hash kodun tamamı ya da ilk 7 hanesi
+68- git checkout 4c0ff2895898a0031744b6b9db1401ffe5aad1b9 -- .
+(git checkout <hash_code> -- .)
+* Sondaki nokta yerine dosya ismi de yazabiliriz. Sadece o dosya geri gelecektir.
+
+69- git status 
+* Geri geldiğimizde commit etmek gerekebilir. Bu durum git status komutuyla kontrol edilir.
+
+
+
+** BRANCH İşlemleri
+
+1- git branch
+output:
+* (HEAD detached at 4c0ff28)
+  master
+
+* new_branch adında bir dal oluşturalım
+2- git branch new_branch
+3- git branch 
+output:
+* master
+  new_branch
+
+* Veya bütün branchleri(uzakta oluşturulmuş branchler) "git branch all"
+
+* new_branch e geçelim
+4- git checkout new_branch
+
+output:
+Switched to branch 'new_branch'
+
+* *(yıldız) olan daldayım anlamına gelir.
+5- git branch
+output:
+  master
+* new_branch
+
+* new_branch te bir dosya oluşturalım
+6- touch new_branch_file.txt
+7- git add .
+8- git commit -m "new_branch_file.txt added"
+
+output:
+[new_branch 8f0c68b] new_branch_file added
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 new_branch_file.txt
+
+
+
+* Master ile yeni dalı birleştirelim.
+* Önce master dalına geçmemiz gerekiyor.
+9- git checkout master
+output:
+Switched to branch 'master'
+
+* İki dal arasındaki farklılıkları görüntülemek için:
+
+* iki dalı birleştirelim.(Not: vi ile bir dosya açılabilir, Esc sonra :wq ile çıkılabilir.)
+10- git merge new_branch
+output:
+Merge made by the 'recursive' strategy.
+ new_branch_file.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 new_branch_file.txt
+ -----------------------------------------------------------
+ 
+*Githubta "assignments" adlı repo oluştur.
+
+
+*pc masaüstünde "python-assignment1" adlı klasörü oluştur.
+
+cd python-assignment1 ile içine gir
+user@Dell MINGW64 ~/desktop/python-assignment1
+
+* text.txt dosyasını python-assignment1 içine ekle
+
+user@Dell MINGW64 ~/desktop/python-assignment1
+$ git init
+
+user@Dell MINGW64 ~/desktop/python-assignment1 (master)
+$ git add .
+
+user@Dell MINGW64 ~/desktop/python-assignment1 (master)
+$ git status
+
+user@Dell MINGW64 ~/desktop/python-assignment1 (master)
+$ git commit -m "text added"
+
+user@Dell MINGW64 ~/desktop/python-assignment1 (master)
+$ git remote add origin https://github.com/youraccount/remote-repo.git
+
+user@Dell MINGW64 ~/desktop/python-assignment1 (master)
+$ git push -u origin master
+
+
+* dosyada değişiklik ekleme/çıkarma yapalım
+
+
+user@Dell MINGW64 ~/desktop/python-assignment1 (master)
+$ git add .
+
+user@Dell MINGW64 ~/desktop/python-assignment1 (master)
+$ git commit -m "second added"
+
+user@Dell MINGW64 ~/desktop/python-assignment1 (master)
+$ git push
+"direkt push yapman yeterli "
+
+------------------------------------------------
+user@Dell MINGW64 ~/desktop/local-repo (master)
+git pull origin master --allow-unrelated-histories
+git push -f origin master
+
+git remote rm origin 					: remove remote origin
+
+git remote -v
+git branch -r
+git branch -a
+
+ln -s /mnt/c/users/rukiye/desktop desktop
+
+git config --global core.autocrlf false
+
