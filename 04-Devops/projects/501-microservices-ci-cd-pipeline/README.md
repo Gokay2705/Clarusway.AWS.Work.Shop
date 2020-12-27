@@ -1065,7 +1065,7 @@ git branch feature/msp-16
 git checkout feature/msp-16
 ```
 
-- Prepare a Cloudformation template for Docker Swarm Infrastructure consisting of 3 Managers, 2 Worker Instances and save it as `docker-swarm-infrastructure-cfn-template.yml` under `infrastructure` folder.
+- Prepare a Cloudformation template for Docker Swarm Infrastructure consisting of 3 Managers, 2 Worker Instances and save it as `dev-docker-swarm-infrastructure-cfn-template.yml` under `infrastructure` folder.
 
 - Grant permissions to Docker Machines within Cloudformation template to create ECR Registry, push or pull Docker images to/from ECR Repo.
 
@@ -1115,7 +1115,7 @@ PATH="$PATH:/usr/local/bin"
 APP_NAME="Petclinic"
 APP_STACK_NAME="Call-$APP_NAME-App-${BUILD_NUMBER}"
 CFN_KEYPAIR="call-ansible-test-dev.key"
-CFN_TEMPLATE="./infrastructure/docker-swarm-infrastructure-cfn-template.yml"
+CFN_TEMPLATE="./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml"
 AWS_REGION="us-east-1"
 aws cloudformation create-stack --region ${AWS_REGION} --stack-name ${APP_STACK_NAME} --capabilities CAPABILITY_IAM --template-body file://${CFN_TEMPLATE} --parameters ParameterKey=KeyPairName,ParameterValue=${CFN_KEYPAIR}
 ```
@@ -1451,7 +1451,7 @@ rm -rf ${CFN_KEYPAIR}
 PATH="$PATH:/usr/local/bin"
 APP_NAME="Petclinic"
 CFN_KEYPAIR="Call-$APP_NAME-dev-${BUILD_NUMBER}.key"
-CFN_TEMPLATE="./infrastructure/docker-swarm-infrastructure-cfn-template.yml"
+CFN_TEMPLATE="./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml"
 AWS_REGION="us-east-1"
 export ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
 export ANSIBLE_HOST_KEY_CHECKING=False
@@ -1863,7 +1863,7 @@ pipeline {
         AWS_REGION="us-east-1"
         ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
         CFN_KEYPAIR="call-${APP_NAME}-dev-${BUILD_NUMBER}.key"
-        CFN_TEMPLATE="./infrastructure/docker-swarm-infrastructure-cfn-template.yml"
+        CFN_TEMPLATE="./infrastructure/dev-docker-swarm-infrastructure-cfn-template.yml"
         ANSIBLE_PRIVATE_KEY_FILE="${WORKSPACE}/${CFN_KEYPAIR}"
         ANSIBLE_HOST_KEY_CHECKING="False"
     }
@@ -2052,7 +2052,6 @@ git push origin dev
 
 ## MSP 18 - Create a QA Environment on Docker Swarm with Cloudformation and Ansible
 
-
 - Create `feature/msp-18` branch from `dev`.
 
 ```bash
@@ -2079,7 +2078,7 @@ mv ${CFN_KEYPAIR} ${JENKINS_HOME}/.ssh/${CFN_KEYPAIR}
 ls -al ${JENKINS_HOME}/.ssh
 ```
 
-- Prepare a script for a Permanent QA Infrastructure with AWS Cloudformation using AWS CLI.
+- Prepare a script with the name of `create-qa-infrastructure-cfn.sh` for a Permanent QA Infrastructure with AWS Cloudformation using AWS CLI under `infrastructure` folder.
 
 ```bash
 PATH="$PATH:/usr/local/bin"
@@ -2118,7 +2117,7 @@ compose:
   ansible_user: "'ec2-user'"
 ```
 
-- Prepare script to create a `QA` Environment for Release on Docker Swarm using the same playbooks created for `Dev` environment.
+- Prepare script with the name of `qa_build_deploy_environment.sh` to create a `QA` Environment for Release on Docker Swarm using the same playbooks created for `Dev` environment under `ansible/scripts` folder.
 
 ```bash
 PATH="$PATH:/usr/local/bin"
@@ -2211,9 +2210,6 @@ pipeline {
     }
 }
 ```
-
-- Create a pipeline on Jenkins Server with name of `create-qa-environment-on-docker-swarm` and create QA environment manually on `dev` branch.
-
 - Commit the change, then push the scripts to the remote repo.
 
 ```bash
@@ -2224,6 +2220,7 @@ git checkout dev
 git merge feature/msp-18
 git push origin dev
 ```
+- Create a pipeline on Jenkins Server with name of `create-qa-environment-on-docker-swarm` and create QA environment manually on `dev` branch.
 
 ## MSP 19 - Prepare Build Scripts for QA Environment
 
