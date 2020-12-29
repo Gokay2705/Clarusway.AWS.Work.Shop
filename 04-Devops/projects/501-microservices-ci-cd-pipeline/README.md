@@ -2526,7 +2526,7 @@ git merge feature/msp-19
 git push origin dev
 ```
 
-## MSP 20 - Build and Deploy App on QA Environment Manually
+## MSP 20 - Build and Deploy App on QA Environment Manually 
 
 - Create `feature/msp-20` branch from `dev`.
 
