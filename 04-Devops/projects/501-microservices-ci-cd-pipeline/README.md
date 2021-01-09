@@ -3192,9 +3192,9 @@ git checkout feature/msp-23
 
   * Inbound rules;
 
-    * Allow TCP on port 80 from Application Load Balancer.
+    * Allow HTTP protocol (TCP on port 80) from Application Load Balancer.
 
-    * Allow TCP on port 443 from any source that needs to use Rancher UI or API.
+    * Allow HTTPS protocol (TCP on port 443) from any source that needs to use Rancher UI or API.
 
     * Allow TCP on port 6443 from any source that needs to use Kubernetes API server(ex. Jenkins Server).
   
@@ -3204,7 +3204,7 @@ git checkout feature/msp-23
 
     * Allow SSH on port 22 to any node IP from a node created using Node Driver.
 
-    * Allow TCP on port 443 to `35.160.43.145/32`, `35.167.242.46/32`, `52.33.59.17/32` for catalogs of `git.rancher.io`.
+    * Allow HTTPS protocol (TCP on port 443) to `35.160.43.145/32`, `35.167.242.46/32`, `52.33.59.17/32` for catalogs of `git.rancher.io`.
 
     * Allow TCP on port 2376 to any node IP from a node created using Node Driver for Docker machine TLS port.
 
@@ -3390,20 +3390,6 @@ SSH User          : rancher
 Label             : os=rancheros
 ```
 
-* Create a Kubernetes cluster using Rancher with RKE and new nodes in AWS (on one EC2 instance only) and name it as `petclinic-cluster`.
-
-```text
-Cluster Type      : Amazon EC2
-Name Prefix       : petclinic-k8s-instance
-Count             : 1
-etcd              : checked
-Control Plane     : checked
-Worker            : checked
-```
-
-* Create `petclinic-staging-ns` and `petclinic-prod-ns` namespaces on `petclinic-cluster` with Rancher.
-
-
 ## MSP 26 - Prepare a Staging Pipeline
 
 * Create `feature/msp-26` branch from `release`.
@@ -3413,6 +3399,19 @@ git checkout release
 git branch feature/msp-26
 git checkout feature/msp-26
 ```
+
+* Create a Kubernetes cluster using Rancher with RKE and new nodes in AWS  and name it as `petclinic-cluster-staging`.
+
+```text
+Cluster Type      : Amazon EC2
+Name Prefix       : petclinic-k8s-instance
+Count             : 3
+etcd              : checked
+Control Plane     : checked
+Worker            : checked
+```
+
+* Create `petclinic-staging-ns` namespace on `petclinic-cluster-staging` with Rancher.
 
 * Create a Jenkins Job and name it as `create-ecr-docker-registry-for-petclinic-staging` to create Docker Registry for `Staging` manually on AWS ECR.
 
@@ -3605,6 +3604,19 @@ git branch feature/msp-27
 git checkout feature/msp-27
 ```
 
+* Create a Kubernetes cluster using Rancher with RKE and new nodes in AWS (on one EC2 instance only) and name it as `petclinic-cluster`.
+
+```text
+Cluster Type      : Amazon EC2
+Name Prefix       : petclinic-k8s-instance
+Count             : 3
+etcd              : checked
+Control Plane     : checked
+Worker            : checked
+```
+
+* Create `petclinic-prod-ns` namespace on `petclinic-cluster` with Rancher.
+
 * Create a Jenkins Job and name it as `create-ecr-docker-registry-for-petclinic-prod` to create Docker Registry for `Production` manually on AWS ECR.
 
 ``` bash
@@ -3792,7 +3804,7 @@ git checkout feature/msp-28
 
 * Create an `A` record of `petclinic.clarusway.us` in your hosted zone (in our case `clarusway.us`) using AWS Route 53 domain registrar and bind it to your `petclinic cluster`.
 
-* Configure TLS(SSL) certificate for `petclinic.clarusway.us` using `cert-manager` on petclinic K8s cluster.
+* Configure TLS(SSL) certificate for `petclinic003.clarusway.us` using `cert-manager` on petclinic K8s cluster with the following steps.
 
 * Log into Jenkins Server and configure the `kubectl` to connect to petclinic cluster by getting the `Kubeconfig` file from Rancher and save it as `$HOME/.kube/config` or set `KUBECONFIG` environment variable.
 
@@ -3810,10 +3822,10 @@ kubectl get ns
   * Create the namespace for cert-manager
 
   ```bash
-  kubectl create namespace cert-manager
+    kubectl create namespace cert-manager
   ```
 
-  * Add the Jetstack Helm repository
+  * Add the Jetstack Helm reposito
 
   ```bash
   helm repo add jetstack https://charts.jetstack.io
@@ -3835,9 +3847,9 @@ kubectl get ns
 
   ```bash
   helm install \
-    cert-manager jetstack/cert-manager \
-    --namespace cert-manager \
-    --version v1.0.4
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --version v1.0.4
   ```
 
   * Verify that the cert-manager is deployed correctly.
@@ -3871,7 +3883,7 @@ spec:
           class: nginx
 ```
 
-* Apply and check if `ClusterIssuer` resource is created.
+* Check if `ClusterIssuer` resource is created.
 
 ```bash
 export KUBECONFIG="$HOME/petclinic-config"
@@ -3905,6 +3917,9 @@ git checkout master
 git merge feature/msp-28
 git push origin master
 ```
+
+* Run the `Production Pipeline` `petclinic-prod` on Jenkins manually to examine the petclinic application.
+
 
 ## MSP 29 - Monitoring with Prometheus and Grafana
 
